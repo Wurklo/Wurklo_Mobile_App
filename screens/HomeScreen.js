@@ -7,7 +7,7 @@ import tw from 'tailwind-react-native-classnames';
 const HomeScreen = () => {
     return (
         <View>
-            <Text style={tw`text-blue-600`}>Open up App.js to start working on your app!</Text>
+            <Text style={tw`text-blue-600`}>Change text for git check</Text>
             <StatusBar style="auto" />
         </View>
     );
