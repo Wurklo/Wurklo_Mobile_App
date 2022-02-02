@@ -9,7 +9,6 @@ const HomeScreen = () => {
     return (
         <SafeAreaView>
             <StatusBar style="auto" />
-            <Text style={tw`text-center text-blue-600`}>Project Post Card Component</Text>
             <ProjectPost />
         </SafeAreaView>
     );
