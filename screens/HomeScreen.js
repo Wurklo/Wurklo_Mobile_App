@@ -1,15 +1,17 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
+import ProjectPost from '../components/ProjectPost';
 
 const HomeScreen = () => {
     return (
-        <View>
-            <Text style={tw`text-blue-600`}>Change text for git check git push without branch name</Text>
+        <SafeAreaView>
             <StatusBar style="auto" />
-        </View>
+            <Text style={tw`text-center text-blue-600`}>Project Post Card Component</Text>
+            <ProjectPost />
+        </SafeAreaView>
     );
 };
 
