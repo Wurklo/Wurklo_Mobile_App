@@ -7,7 +7,7 @@ import tw from 'tailwind-react-native-classnames';
 const HomeScreen = () => {
     return (
         <View>
-            <Text style={tw`text-blue-600`}>Change text for git check</Text>
+            <Text style={tw`text-blue-600`}>Change text for git check git push without branch name</Text>
             <StatusBar style="auto" />
         </View>
     );
