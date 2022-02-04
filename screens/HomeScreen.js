@@ -1,15 +1,16 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
+import ProjectPost from '../components/ProjectPost';
 
 const HomeScreen = () => {
     return (
-        <View>
-            <Text style={tw`text-blue-600`}>Open up App.js to start working on your app!</Text>
+        <SafeAreaView>
             <StatusBar style="auto" />
-        </View>
+            <ProjectPost />
+        </SafeAreaView>
     );
 };
 
