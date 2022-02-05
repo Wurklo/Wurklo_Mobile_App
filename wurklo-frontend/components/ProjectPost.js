@@ -36,14 +36,19 @@ const ProjectPost = () => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [projects, setProjects] = useState()
 
+    // get projects and store them in projects useState
     useEffect(() => {
         axios.get('/api/v1/works').then((response) => {
-            setProjects(response.data);
+            if (response.data.data.length > 0) {
+                setProjects(response.data);
+            } else {
+                console.log(response.data)
+            }
         });
     }, [])
-    
 
-    console.log("Projects ", projects?.data[0]);
+    console.log("Projects ", projects?.data);
+    console.log("Timestamp ", moment(1644060362062).fromNow())
 
     // handle voting
     const handleVote = (num, voteType) => {
@@ -88,7 +93,7 @@ const ProjectPost = () => {
                     </View>
                     <View style={tw`flex w-3/4`}>
                         <Text style={tw`font-bold`}>{projects?.data[0].title}</Text>
-                        <Text style={tw`text-xs`}>{moment().fromNow()}</Text>
+                        <Text style={tw`text-xs`}>{moment(projects?.data[0].created).fromNow()}</Text>
                         <Text style={tw``}>{projects?.data[0].description.slice(0, 55)}...</Text>
                     </View>
                 </View>
@@ -105,11 +110,11 @@ const ProjectPost = () => {
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne(project.upvote, "upvote") : setIsUpvote(true) & handleVote(project.upvote, "upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{project.upvote}</Text>
+                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{projects?.data[0].upvote}</Text>
                 </View>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne(project.downvote, "downvote") : setIsDownvote(true) & handleVote(project.downvote, "downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{project.downvote}</Text>
+                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{projects?.data[0].downvote}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
                 <Entypo name="message" size={30} color="skyblue" />

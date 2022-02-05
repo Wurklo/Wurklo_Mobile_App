@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
+
 const WorkSchema = new mongoose.Schema({
 
     title: {
@@ -33,8 +35,8 @@ const WorkSchema = new mongoose.Schema({
         type: Boolean,
     },
     created: {
-        type: Date,
-        default: Date.now
+        type: Number,
+        default: moment().valueOf()
     }
 
 });
