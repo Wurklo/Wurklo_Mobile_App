@@ -34,7 +34,8 @@ const ProjectPost = () => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [projects, setProjects] = useState()
+    const [projects, setProjects] = useState();
+    const [refreshPage, setRefreshPage] = useState(false);
 
     // get projects and store them in projects useState
     useEffect(() => {
@@ -45,37 +46,42 @@ const ProjectPost = () => {
                 console.log(response.data)
             }
         });
-    }, [])
-
-    console.log("Projects ", projects?.data);
-    console.log("Timestamp ", moment(1644060362062).fromNow())
+        setRefreshPage(false);
+    }, [refreshPage])
 
     // handle voting
-    const handleVote = (num, voteType) => {
+    const handleVote = (voteType) => {
+        setRefreshPage(true);
         if (voteType === "upvote" && isDownvote === false) {
-            project.upvote = num += 1;
+            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {upvote: projects?.data[0].upvote + 1})
         } else if (voteType === "upvote" && isDownvote === true) {
             setIsDownvote(false);
-            project.downvote -= 1;
-            project.upvote = num += 1;
+            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {
+                upvote: projects?.data[0].upvote + 1,
+                downvote: projects?.data[0].downvote - 1,
+            })
         } else if (voteType === "downvote" && isUpvote === false) {
-            project.downvote = num += 1;
+            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {downvote: projects?.data[0].downvote + 1})
         } else if (voteType === "downvote" && isUpvote === true) {
             setIsUpvote(false);
-            project.upvote -= 1;
-            project.downvote = num += 1;
+            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {
+                upvote: projects?.data[0].upvote - 1,
+                downvote: projects?.data[0].downvote + 1,
+            })
         } else {
-            project.downvote = num += 1;
+            console.log("You picked a bad function")
         }
     }
 
-    const subtractOne = (num, voteType) => {
+    const subtractOne = (voteType) => {
+        setRefreshPage(true);
         if (voteType === "upvote") {
-            project.upvote = num -= 1;
+            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {upvote: projects?.data[0].upvote - 1})
         } else {
-            project.downvote = num -= 1;
+            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {downvote: projects?.data[0].downvote - 1})
         }
     }
+
 
     return (
         <View style={[
@@ -109,11 +115,11 @@ const ProjectPost = () => {
             </View>
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne(project.upvote, "upvote") : setIsUpvote(true) & handleVote(project.upvote, "upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
+                    <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
                     <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{projects?.data[0].upvote}</Text>
                 </View>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne(project.downvote, "downvote") : setIsDownvote(true) & handleVote(project.downvote, "downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
+                    <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
                     <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{projects?.data[0].downvote}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
