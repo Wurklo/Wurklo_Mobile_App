@@ -9,7 +9,7 @@ import moment from 'moment';
 
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
-const ProjectPost = ({projects}) => {
+const ProjectPost = ({projects, id, title, image, description, upvote, downvote, payrate, collab, created}) => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -52,7 +52,7 @@ const ProjectPost = ({projects}) => {
 
     return (
         <View style={[
-            tw`flex bg-white`,
+            tw`flex bg-white mb-1`,
             styles.cardShadow,
         ]}>
             <TouchableOpacity>
@@ -61,33 +61,33 @@ const ProjectPost = ({projects}) => {
                         style={tw`rounded-full h-16 w-16 mx-2`}
                         source={{ uri: profilePic }}
                     />
-                    <View style={tw`absolute top-0.5 right-2 rounded-full p-1${projects?.data[0].collab ? ' bg-blue-500' : ' bg-yellow-500'}`}>
-                        <Text style={projects?.data[0].collab ? tw`text-white` : ""}>{projects?.data[0].collab ? "Collab+" : "Solo"}</Text>
+                    <View style={tw`absolute top-0.5 right-2 rounded-full p-1${collab ? ' bg-blue-500' : ' bg-yellow-500'}`}>
+                        <Text style={collab ? tw`text-white` : ""}>{collab ? "Collab+" : "Solo"}</Text>
                     </View>
                     <View style={tw`flex w-3/4`}>
-                        <Text style={tw`font-bold`}>{projects?.data[0].title}</Text>
-                        <Text style={tw`text-xs`}>{moment(projects?.data[0].created).fromNow()}</Text>
-                        <Text style={tw``}>{projects?.data[0].description.slice(0, 55)}...</Text>
+                        <Text style={tw`font-bold`}>{title}</Text>
+                        <Text style={tw`text-xs`}>{moment(created).fromNow()}</Text>
+                        <Text style={tw``}>{description.slice(0, 55)}...</Text>
                     </View>
                 </View>
                 <Image
                     style={tw`h-52 w-full`}
-                    source={{ uri: projects?.data[0].image }}
+                    source={{ uri: image }}
                 />
             </TouchableOpacity>
             <View>
                 <Text style={tw`text-2xl font-bold text-center p-1`}>
-                    {projects?.data[0].pay_rate} WURK
+                    {payrate} WURK
                 </Text>
             </View>
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{projects?.data[0].upvote}</Text>
+                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{upvote}</Text>
                 </View>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{projects?.data[0].downvote}</Text>
+                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{downvote}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
                 <Entypo name="message" size={30} color="skyblue" />
