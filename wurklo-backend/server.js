@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const colors = require('colors');
 const errorHandler = require('./middleware/error')
 const connectDB = require('./config/db');
+const cors = require('cors')
 
 //load env vars
 
@@ -18,7 +19,7 @@ const works = require('./routes/work');
 
 // body parser
 app.use(express.json());
-
+app.use(cors())
 
 //dev logging middle ware
 if (process.env.NODE_ENV === 'development') {
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //mount routers
-app.use(express.json());
+app.use(express.json()); // ***do we need two of these***
 
 app.use('/api/v1/works', works);
 

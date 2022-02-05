@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image, Button } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import axios from '../axios';
 
 // need to setup moment time display from dummydata
 import moment from 'moment';
@@ -33,6 +34,15 @@ const ProjectPost = () => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [projects, setProjects] = useState([])
+
+    useEffect(() => {
+        axios.get('/api/v1/works').then((response) => {
+            setProjects(response.data);
+        });
+    }, [])
+
+    console.log("Projects ", projects);
 
     // handle voting
     const handleVote = (num, voteType) => {
@@ -42,9 +52,9 @@ const ProjectPost = () => {
             setIsDownvote(false);
             project.downvote -= 1;
             project.upvote = num += 1;
-        } else if (voteType === "downvote" && isUpvote === false){
+        } else if (voteType === "downvote" && isUpvote === false) {
             project.downvote = num += 1;
-        } else if (voteType === "downvote" && isUpvote === true){
+        } else if (voteType === "downvote" && isUpvote === true) {
             setIsUpvote(false);
             project.upvote -= 1;
             project.downvote = num += 1;
@@ -60,7 +70,7 @@ const ProjectPost = () => {
             project.downvote = num -= 1;
         }
     }
-    
+
     return (
         <View style={[
             tw`flex bg-white`,
