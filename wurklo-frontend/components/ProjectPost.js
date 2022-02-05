@@ -9,32 +9,29 @@ import moment from 'moment';
 
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
-const ProjectPost = ({projects, id, title, image, description, upvote, downvote, payrate, collab, created}) => {
+const ProjectPost = ({id, title, image, description, upvote, downvote, payrate, collab, created}) => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    console.log(projects?.data)
-
+    console.log("id", id)
     // handle voting
     const handleVote = (voteType) => {
         if (voteType === "upvote" && isDownvote === false) {
-            console.log(projects?.data[0].upvote)
-            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {upvote: projects?.data[0].upvote + 1})
-            console.log(projects?.data[0].upvote)
+            axios.put(`/api/v1/works/${id}`, {upvote: upvote + 1})
         } else if (voteType === "upvote" && isDownvote === true) {
             setIsDownvote(false);
-            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {
-                upvote: projects?.data[0].upvote + 1,
-                downvote: projects?.data[0].downvote - 1,
+            axios.put(`/api/v1/works/${id}`, {
+                upvote: upvote + 1,
+                downvote: downvote - 1,
             })
         } else if (voteType === "downvote" && isUpvote === false) {
-            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {downvote: projects?.data[0].downvote + 1})
+            axios.put(`/api/v1/works/${id}`, {downvote: downvote + 1})
         } else if (voteType === "downvote" && isUpvote === true) {
             setIsUpvote(false);
-            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {
-                upvote: projects?.data[0].upvote - 1,
-                downvote: projects?.data[0].downvote + 1,
+            axios.put(`/api/v1/works/${id}`, {
+                upvote: upvote - 1,
+                downvote: downvote + 1,
             })
 
         } else {
@@ -44,9 +41,9 @@ const ProjectPost = ({projects, id, title, image, description, upvote, downvote,
 
     const subtractOne = (voteType) => {
         if (voteType === "upvote") {
-            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {upvote: projects?.data[0].upvote - 1})
+            axios.put(`/api/v1/works/${id}`, {upvote: upvote - 1})
         } else {
-            axios.put(`/api/v1/works/${projects?.data[0]._id}`, {downvote: projects?.data[0].downvote - 1})
+            axios.put(`/api/v1/works/${id}`, {downvote: downvote - 1})
         }
     }
 

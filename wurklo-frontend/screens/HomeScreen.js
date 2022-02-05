@@ -20,16 +20,18 @@ const HomeScreen = () => {
         });
     }, [])
 
-    console.log(projects?.data)
+    console.log("yo" + projects?.data)
+    console.log("item", projects)
+
     return (
         <SafeAreaView>
             <StatusBar style="auto" />
             <FlatList
                 data={projects?.data}
-                keyExtractor={item => item.id}
+                keyExtractor={(item) => item._id}
                 renderItem={({ item: project }) =>
                     <ProjectPost
-                        key={project._id}
+                        id={project._id}
                         title={project.title}
                         image={project.image}
                         description={project.description}
