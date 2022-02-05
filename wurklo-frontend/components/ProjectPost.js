@@ -7,53 +7,21 @@ import axios from '../axios';
 // need to setup moment time display from dummydata
 import moment from 'moment';
 
-const DUMMY_DATA = [
-    {
-        projects: [
-            {
-                id: 0,
-                title: "Building an Electric Car",
-                image: "https://news.hmgjournal.com/images_n/contents/Is-It-the-Era-of-The-Electric-Car1.jpg",
-                description: "I am building a fuel efficient autonomous car. This project will create cars that work with electricity only",
-                upvote: 250,
-                downvote: 50,
-                pay_rate: 50000,
-                collab: {
-                    is_collab: true
-                },
-                created: 2643537055
-            }
-        ]
-    }
-]
-
-const project = DUMMY_DATA[0].projects[0]
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
-const ProjectPost = () => {
+const ProjectPost = ({projects}) => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [projects, setProjects] = useState();
-    const [refreshPage, setRefreshPage] = useState(false);
 
-    // get projects and store them in projects useState
-    useEffect(() => {
-        axios.get('/api/v1/works').then((response) => {
-            if (response.data.data.length > 0) {
-                setProjects(response.data);
-            } else {
-                console.log(response.data)
-            }
-        });
-        setRefreshPage(false);
-    }, [refreshPage])
+    console.log(projects?.data)
 
     // handle voting
     const handleVote = (voteType) => {
-        setRefreshPage(true);
         if (voteType === "upvote" && isDownvote === false) {
+            console.log(projects?.data[0].upvote)
             axios.put(`/api/v1/works/${projects?.data[0]._id}`, {upvote: projects?.data[0].upvote + 1})
+            console.log(projects?.data[0].upvote)
         } else if (voteType === "upvote" && isDownvote === true) {
             setIsDownvote(false);
             axios.put(`/api/v1/works/${projects?.data[0]._id}`, {
@@ -68,20 +36,19 @@ const ProjectPost = () => {
                 upvote: projects?.data[0].upvote - 1,
                 downvote: projects?.data[0].downvote + 1,
             })
+
         } else {
             console.log("You picked a bad function")
         }
     }
 
     const subtractOne = (voteType) => {
-        setRefreshPage(true);
         if (voteType === "upvote") {
             axios.put(`/api/v1/works/${projects?.data[0]._id}`, {upvote: projects?.data[0].upvote - 1})
         } else {
             axios.put(`/api/v1/works/${projects?.data[0]._id}`, {downvote: projects?.data[0].downvote - 1})
         }
     }
-
 
     return (
         <View style={[
