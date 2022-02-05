@@ -34,15 +34,16 @@ const ProjectPost = () => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [projects, setProjects] = useState([])
+    const [projects, setProjects] = useState()
 
     useEffect(() => {
         axios.get('/api/v1/works').then((response) => {
             setProjects(response.data);
         });
     }, [])
+    
 
-    console.log("Projects ", projects);
+    console.log("Projects ", projects?.data[0]);
 
     // handle voting
     const handleVote = (num, voteType) => {
@@ -82,23 +83,23 @@ const ProjectPost = () => {
                         style={tw`rounded-full h-16 w-16 mx-2`}
                         source={{ uri: profilePic }}
                     />
-                    <View style={tw`absolute top-0.5 right-2 rounded-full p-1${project.collab.is_collab ? ' bg-blue-500' : ' bg-yellow-500'}`}>
-                        <Text style={project.collab.is_collab ? tw`text-white` : ""}>{project.collab.is_collab ? "Collab+" : "Solo"}</Text>
+                    <View style={tw`absolute top-0.5 right-2 rounded-full p-1${projects?.data[0].collab ? ' bg-blue-500' : ' bg-yellow-500'}`}>
+                        <Text style={projects?.data[0].collab ? tw`text-white` : ""}>{projects?.data[0].collab ? "Collab+" : "Solo"}</Text>
                     </View>
                     <View style={tw`flex w-3/4`}>
-                        <Text style={tw`font-bold`}>{project.title}</Text>
+                        <Text style={tw`font-bold`}>{projects?.data[0].title}</Text>
                         <Text style={tw`text-xs`}>{moment().fromNow()}</Text>
-                        <Text style={tw``}>{project.description.slice(0, 55)}...</Text>
+                        <Text style={tw``}>{projects?.data[0].description.slice(0, 55)}...</Text>
                     </View>
                 </View>
                 <Image
                     style={tw`h-52 w-full`}
-                    source={{ uri: project.image }}
+                    source={{ uri: projects?.data[0].image }}
                 />
             </TouchableOpacity>
             <View>
                 <Text style={tw`text-2xl font-bold text-center p-1`}>
-                    {project.pay_rate} WURK
+                    {projects?.data[0].pay_rate} WURK
                 </Text>
             </View>
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
