@@ -21,7 +21,7 @@ const WURKERS = [
         image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
         description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
         skill: "Plumber",
-        rating: 5,
+        rating: 3,
     },
     {
         id: 2,
@@ -29,7 +29,7 @@ const WURKERS = [
         image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
         description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
         skill: "Plumber",
-        rating: 5,
+        rating: 4,
     },
     {
         id: 3,
@@ -37,7 +37,7 @@ const WURKERS = [
         image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
         description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
         skill: "Plumber",
-        rating: 5,
+        rating: 2,
     },
 ]
 
@@ -60,7 +60,7 @@ const WurkerPost = () => {
             <Text>{WURKERS[0].skill}</Text>
             <AirbnbRating
                 size={25}
-                defaultRating={5}
+                defaultRating={WURKERS[0].rating}
                 isDisabled={true}
                 showRating={false} />
         </TouchableOpacity>
