@@ -7,6 +7,7 @@ import { StyleSheet } from 'react-native';
 import axios from '../axios';
 import moment from 'moment';
 import { useState } from 'react';
+import numeral from 'numeral';
 
 const ProjectDetails = () => {
     const route = useRoute();
@@ -64,32 +65,32 @@ const ProjectDetails = () => {
                     source={{ uri: route.params.image }}
                 />
             </View>
-            <View>
+            <View style={tw`mx-1`}>
                 <Text style={tw`text-2xl font-bold text-center p-2`}>
-                    {route.params.payrate} WURK
+                    {numeral(route.params.payrate).format('0.0a')} WURK
                 </Text>
                 <Text style={tw`mx-6 mb-3`}>{route.params.description}</Text>
-                <View style={tw`flex-row my-4`}>
+                <View style={tw`flex-row justify-around my-4`}>
                     <Image
-                        style={tw`rounded-full h-44 w-36 mx-2 mb-3`}
+                        style={tw`rounded-full h-44 w-36 mb-3`}
                         source={{ uri: route.params.profilePic }}
                     />
                     <View>
-                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>1 Full Stack Engineer | Apply</Text>
-                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>1 Electrical Engineer | Apply</Text>
-                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>1 3D Designer | Apply</Text>
-                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>2 Accountant | Apply</Text>
+                        <Text style={tw`text-xs mt-2`}>1 Full Stack Engineer | Apply</Text>
+                        <Text style={tw`text-xs mt-2`}>1 Electrical Engineer | Apply</Text>
+                        <Text style={tw`text-xs mt-2`}>1 3D Designer | Apply</Text>
+                        <Text style={tw`text-xs mt-2`}>2 Accountant | Apply</Text>
                     </View>
                 </View>
             </View>
             <View style={tw`flex-row justify-between mx-5 pb-5`}>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => route.params.isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{route.params.upvote}</Text>
+                    <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
+                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(route.params.upvote).format('0 a')}</Text>
                 </View>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => route.params.isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{route.params.downvote}</Text>
+                    <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
+                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(route.params.downvote).format('0 a')}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
                 <Entypo name="message" size={30} color="skyblue" />

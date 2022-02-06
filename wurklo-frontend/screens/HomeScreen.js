@@ -1,10 +1,11 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import ProjectPost from '../components/ProjectPost';
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
     const [projects, setProjects] = useState();

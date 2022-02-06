@@ -5,6 +5,7 @@ import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from '../axios';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
+import numeral from 'numeral';
 
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
@@ -75,17 +76,17 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
             </TouchableOpacity>
             <View>
                 <Text style={tw`text-2xl font-bold text-center p-1`}>
-                    {payrate} WURK
+                    {numeral(payrate).format('0.0a')} WURK
                 </Text>
             </View>
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{upvote}</Text>
+                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(upvote).format('0 a')}</Text>
                 </View>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{downvote}</Text>
+                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(downvote).format('0 a')}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
                 <Entypo name="message" size={30} color="skyblue" />
