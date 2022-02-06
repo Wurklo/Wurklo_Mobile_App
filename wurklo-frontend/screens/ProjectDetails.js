@@ -75,20 +75,20 @@ const ProjectDetails = () => {
                         source={{ uri: route.params.profilePic }}
                     />
                     <View>
-                        <Text style={tw`ml-1 mt-2`}>1 Full Stack Engineer | Apply</Text>
-                        <Text style={tw`ml-1 mt-2`}>1 Electrical Engineer | Apply</Text>
-                        <Text style={tw`ml-1 mt-2`}>1 3D Designer | Apply</Text>
-                        <Text style={tw`ml-1 mt-2`}>2 Accountant | Apply</Text>
+                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>1 Full Stack Engineer | Apply</Text>
+                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>1 Electrical Engineer | Apply</Text>
+                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>1 3D Designer | Apply</Text>
+                        <Text style={tw`text-xs w-4/5 ml-1 mt-2`}>2 Accountant | Apply</Text>
                     </View>
                 </View>
             </View>
-            <View style={tw`flex-row justify-between mx-5`}>
+            <View style={tw`flex-row justify-between mx-5 pb-5`}>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => route.params.isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={route.params.isUpvote ? "lightgreen" : "lightgray"} />
+                    <Entypo onPress={() => route.params.isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
                     <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{route.params.upvote}</Text>
                 </View>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => route.params.isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={route.params.isDownvote ? "pink" : "lightgray"} />
+                    <Entypo onPress={() => route.params.isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
                     <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{route.params.downvote}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
