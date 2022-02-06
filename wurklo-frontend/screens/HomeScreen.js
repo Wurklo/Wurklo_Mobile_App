@@ -22,7 +22,7 @@ const HomeScreen = () => {
 
     console.log("yo" + projects?.data)
     console.log("item", projects)
-    
+
     return (
         <SafeAreaView>
             <StatusBar style="auto" />

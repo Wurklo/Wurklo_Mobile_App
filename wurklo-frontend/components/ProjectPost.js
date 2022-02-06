@@ -3,22 +3,21 @@ import React, { useEffect, useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from '../axios';
-
-// need to setup moment time display from dummydata
+import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
-const ProjectPost = ({id, title, image, description, upvote, downvote, payrate, collab, created}) => {
+const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate, collab, created }) => {
+    const navigation = useNavigation();
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    console.log("id", id)
     // handle voting
     const handleVote = (voteType) => {
         if (voteType === "upvote" && isDownvote === false) {
-            axios.put(`/api/v1/works/${id}`, {upvote: upvote + 1})
+            axios.put(`/api/v1/works/${id}`, { upvote: upvote + 1 })
         } else if (voteType === "upvote" && isDownvote === true) {
             setIsDownvote(false);
             axios.put(`/api/v1/works/${id}`, {
@@ -26,7 +25,7 @@ const ProjectPost = ({id, title, image, description, upvote, downvote, payrate, 
                 downvote: downvote - 1,
             })
         } else if (voteType === "downvote" && isUpvote === false) {
-            axios.put(`/api/v1/works/${id}`, {downvote: downvote + 1})
+            axios.put(`/api/v1/works/${id}`, { downvote: downvote + 1 })
         } else if (voteType === "downvote" && isUpvote === true) {
             setIsUpvote(false);
             axios.put(`/api/v1/works/${id}`, {
@@ -41,9 +40,9 @@ const ProjectPost = ({id, title, image, description, upvote, downvote, payrate, 
 
     const subtractOne = (voteType) => {
         if (voteType === "upvote") {
-            axios.put(`/api/v1/works/${id}`, {upvote: upvote - 1})
+            axios.put(`/api/v1/works/${id}`, { upvote: upvote - 1 })
         } else {
-            axios.put(`/api/v1/works/${id}`, {downvote: downvote - 1})
+            axios.put(`/api/v1/works/${id}`, { downvote: downvote - 1 })
         }
     }
 
@@ -52,7 +51,9 @@ const ProjectPost = ({id, title, image, description, upvote, downvote, payrate, 
             tw`flex bg-white mb-1`,
             styles.cardShadow,
         ]}>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("ProjectDetails", {id, title, image, description, upvote, downvote, payrate, collab, created, profilePic})}
+            >
                 <View style={tw`flex-row justify-around items-center my-2 relative`}>
                     <Image
                         style={tw`rounded-full h-16 w-16 mx-2`}
