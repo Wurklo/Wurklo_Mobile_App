@@ -6,47 +6,12 @@ import { AirbnbRating } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 
-const WURKERS = [
-    {
-        id: 0,
-        name: "Joshua Beckman",
-        image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
-        description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
-        skill: "Plumber",
-        rating: 5,
-    },
-    {
-        id: 1,
-        name: "Chris Bumstead",
-        image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
-        description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
-        skill: "Plumber",
-        rating: 3,
-    },
-    {
-        id: 2,
-        name: "Joshua Beckman",
-        image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
-        description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
-        skill: "Plumber",
-        rating: 4,
-    },
-    {
-        id: 3,
-        name: "Joshua Beckman",
-        image: "https://www.stylemotivation.com/wp-content/uploads/2019/09/plumber-main-620x496.jpg",
-        description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
-        skill: "Plumber",
-        rating: 2,
-    },
-]
-
-const WurkerPost = () => {
+const WurkerPost = ({id, image, name, skill, rating, description}) => {
     const navigation = useNavigation();
 
     return (
         <TouchableOpacity
-        onPress={() => navigation.navigate("WurkerDetails", {WURKERS})}
+        onPress={() => navigation.navigate("WurkerDetails", {id, image, name, skill, rating, description})}
             style={
                 [tw`flex justify-center items-center p-2 bg-white`,
                 styles.cardShadow,
@@ -54,13 +19,13 @@ const WurkerPost = () => {
             >
             <Image
                 style={tw`rounded-full h-44 w-64`}
-                source={{ uri: WURKERS[0].image }}
+                source={{ uri: image }}
             />
-            <Text style={tw`font-bold text-2xl`}>{WURKERS[0].name}</Text>
-            <Text>{WURKERS[0].skill}</Text>
+            <Text style={tw`font-bold text-2xl`}>{name}</Text>
+            <Text>{skill}</Text>
             <AirbnbRating
                 size={25}
-                defaultRating={WURKERS[0].rating}
+                defaultRating={rating}
                 isDisabled={true}
                 showRating={false} />
         </TouchableOpacity>
