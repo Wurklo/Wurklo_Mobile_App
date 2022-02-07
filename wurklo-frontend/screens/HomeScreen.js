@@ -7,8 +7,11 @@ import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useNavigation } from '@react-navigation/core';
+
 const HomeScreen = () => {
     const [projects, setProjects] = useState();
+    const navigation = useNavigation();
 
     // get projects and store them in projects useState
     useEffect(() => {
@@ -20,9 +23,6 @@ const HomeScreen = () => {
             }
         });
     }, [])
-
-    console.log("yo" + projects?.data)
-    console.log("item", projects)
 
     return (
         <SafeAreaView>
@@ -45,7 +45,6 @@ const HomeScreen = () => {
                 }
 
             />
-
         </SafeAreaView>
     );
 };

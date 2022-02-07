@@ -86,11 +86,11 @@ const ProjectDetails = () => {
             <View style={tw`flex-row justify-between mx-5 pb-5`}>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(route.params.upvote).format('0 a')}</Text>
+                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(route.params.upvote).format('0a')}</Text>
                 </View>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(route.params.downvote).format('0 a')}</Text>
+                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(route.params.downvote).format('0a')}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
                 <Entypo name="message" size={30} color="skyblue" />
