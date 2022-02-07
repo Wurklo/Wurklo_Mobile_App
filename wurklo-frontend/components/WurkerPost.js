@@ -13,7 +13,7 @@ const WurkerPost = ({id, image, name, skill, rating, description}) => {
         <TouchableOpacity
         onPress={() => navigation.navigate("WurkerDetails", {id, image, name, skill, rating, description})}
             style={
-                [tw`flex justify-center items-center p-2 bg-white`,
+                [tw`flex justify-center items-center p-2 bg-white mb-1`,
                 styles.cardShadow,
                 ]}
             >
