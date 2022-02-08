@@ -15,7 +15,6 @@ const ProjectDetails = () => {
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    console.log('params: ', route.params)
     // handle voting
     const handleVote = (voteType) => {
         if (voteType === "upvote" && isDownvote === false) {

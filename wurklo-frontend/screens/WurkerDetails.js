@@ -8,8 +8,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const WurkerDetails = () => {
     const route = useRoute();
 
-    console.log('params: ', route.params)
-
     return (
         <ScrollView style={tw`flex bg-white`}>
             <SafeAreaView style={tw`justify-center items-center p-2 bg-white`}>

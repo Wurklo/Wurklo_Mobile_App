@@ -6,13 +6,19 @@ import ProjectPost from '../components/ProjectPost';
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { useNavigation } from '@react-navigation/core';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setBye, setHello } from '../redux/slices/greeting';
 
 const HomeScreen = () => {
     const [projects, setProjects] = useState();
-    const navigation = useNavigation();
+    //redux
+    const { greeting } = useSelector((state) => state.greeting)
+    const dispatch = useDispatch();
+    dispatch(setBye())
 
+    console.log("Greeting: ", greeting)
     // get projects and store them in projects useState
     useEffect(() => {
         axios.get('/api/v1/works').then((response) => {
