@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image, Button } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from '../redux/axios';

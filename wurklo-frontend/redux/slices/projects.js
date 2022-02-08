@@ -7,8 +7,13 @@ const initialState = {
     projects: data.PROJECTS
 }
 
-console.log(initialState.projects[1].upvote)
-// change the state based on the called function
+// find by id or obj variable array
+// console.log(initialState.projects)
+// console.log("projectId: ", initialState.projects.map(project => project._id).indexOf('61fedb81219b272b68115c0a'));
+// console.log("projectId_findIndex: ", initialState.projects.findIndex((obj) => obj._id === '61fedb81219b272b68115c0a'))
+console.log("projectId_filter: ", initialState.projects.filter((obj) => obj._id === '61fedb81219b272b68115c0a'))
+
+// change the state based on the called functio
 export const projectsSlice = createSlice({
     name: 'projects',
     initialState,
