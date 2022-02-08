@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import axios from '../axios';
+import axios from '../redux/axios';
 import moment from 'moment';
 import { useState } from 'react';
 import numeral from 'numeral';

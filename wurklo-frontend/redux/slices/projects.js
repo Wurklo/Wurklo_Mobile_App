@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from '../axios';
+
 
 //set initial state
 const initialState = {
-    greeting: null
+    project: 5
 }
 
 // change the state based on the called function
-export const greetingSlice = createSlice({
-    name: 'greeting',
+export const projectSlice = createSlice({
+    name: 'project',
     initialState,
     reducers: {
-        setHello: (state) => {
-            state.greeting = 'Hello World!';
-            console.log(state)
+        setHello: (state, action) => {
+            state.project += action.payload;
         },
         setBye: (state) => {
-            state.greeting = 'Bye Bye!';
-            console.log(state)
+            state.project = state.project;
         },
         // setBye: (state, action) => {
         //     state.bye = action.payload;
@@ -26,6 +26,6 @@ export const greetingSlice = createSlice({
 })
 
 //action creators are generated for each case reducer function
-export const { setHello, setBye } = greetingSlice.actions;
+export const { setHello, setBye } = projectSlice.actions;
 
-export default greetingSlice.reducer;
+export default projectSlice.reducer;

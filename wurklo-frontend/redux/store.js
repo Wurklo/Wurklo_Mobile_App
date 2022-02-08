@@ -3,11 +3,11 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 // slices or reducers
-import greeting from './slices/greeting';
+import project from './slices/projects';
 
 export const store = configureStore({
     reducer: {
-        greeting: greeting,
+        project: project,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([thunk, logger]),
 });

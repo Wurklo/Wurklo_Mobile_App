@@ -1,24 +1,23 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import tw from 'tailwind-react-native-classnames';
+import { FlatList } from 'react-native';
 import ProjectPost from '../components/ProjectPost';
 import React, { useState, useEffect } from 'react';
-import axios from '../axios';
+import axios from '../redux/axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/core';
 
+//redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setBye, setHello } from '../redux/slices/greeting';
+import { setBye, setHello } from '../redux/slices/projects';
 
 const HomeScreen = () => {
     const [projects, setProjects] = useState();
     //redux
-    const { greeting } = useSelector((state) => state.greeting)
+    const { project } = useSelector((state) => state.project)
     const dispatch = useDispatch();
-    dispatch(setBye())
 
-    console.log("Greeting: ", greeting)
+
+    console.log("Project: ", project)
     // get projects and store them in projects useState
     useEffect(() => {
         axios.get('/api/v1/works').then((response) => {
@@ -28,6 +27,7 @@ const HomeScreen = () => {
                 console.log(response.data)
             }
         });
+        dispatch(setHello(6))
     }, [])
 
     return (
