@@ -11,6 +11,9 @@ const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Mus
 
 const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate, collab, created }) => {
     const navigation = useNavigation();
+
+    // the below states can be moved to either the user object or the project object when built
+    // for now we use them to hold the value for user actions
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);

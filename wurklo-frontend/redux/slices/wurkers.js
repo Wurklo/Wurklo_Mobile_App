@@ -4,20 +4,19 @@ import data from './data'
 
 //set initial state
 const initialState = {
-    projects: data.PROJECTS
+    wurkers: data.WURKERS
 }
 
-console.log(initialState.projects[1].upvote)
 // change the state based on the called function
-export const projectsSlice = createSlice({
-    name: 'projects',
+export const wurkersSlice = createSlice({
+    name: 'wurkers',
     initialState,
     reducers: {
-        setUpvote: (state, action) => {
-            state.projects.upvote += action.payload;
+        setHello: (state, action) => {
+            state.wurkers += action.payload;
         },
-        setDownvote: (state, action) => {
-            state.projects.downvote += action.payload;
+        setBye: (state) => {
+            state.wurkers = state.wurkers;
         },
         // setBye: (state, action) => {
         //     state.bye = action.payload;
@@ -27,9 +26,9 @@ export const projectsSlice = createSlice({
 })
 
 //action creators are generated for each case reducer function
-export const { setHello, setBye } = projectsSlice.actions;
+export const { setHello, setBye } = wurkersSlice.actions;
 
-export default projectsSlice.reducer;
+export default wurkersSlice.reducer;
 
 
     // get projects and store them in projects useState axios method may change to thunk for redux

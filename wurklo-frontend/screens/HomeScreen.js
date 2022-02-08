@@ -2,39 +2,23 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList } from 'react-native';
 import ProjectPost from '../components/ProjectPost';
-import React, { useState, useEffect } from 'react';
-import axios from '../redux/axios';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setBye, setHello } from '../redux/slices/projects';
+// import { setBye, setHello } from '../redux/slices/projects';
 
 const HomeScreen = () => {
-    const [projects, setProjects] = useState();
     //redux
-    const { project } = useSelector((state) => state.project)
-    const dispatch = useDispatch();
-
-
-    console.log("Project: ", project)
-    // get projects and store them in projects useState
-    useEffect(() => {
-        axios.get('/api/v1/works').then((response) => {
-            if (response.data.data.length > 0) {
-                setProjects(response.data);
-            } else {
-                console.log(response.data)
-            }
-        });
-        dispatch(setHello(6))
-    }, [])
+    const { projects } = useSelector((state) => state.projects)
+    // const dispatch = useDispatch();
 
     return (
         <SafeAreaView>
             <StatusBar style="auto" />
             <FlatList
-                data={projects?.data}
+                data={projects} // maybe add back projects?.data when pulling from server 
                 keyExtractor={(item) => item._id}
                 renderItem={({ item: project }) =>
                     <ProjectPost
