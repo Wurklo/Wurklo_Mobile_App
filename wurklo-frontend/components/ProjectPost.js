@@ -6,11 +6,14 @@ import axios from '../redux/axios';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import numeral from 'numeral';
+import { useDispatch } from 'react-redux';
+import { setDownvote, setUpvote, setSubractVote } from '../redux/slices/projects';
 
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
 const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate, collab, created }) => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     // the below states can be moved to either the user object or the project object when built
     // for now we use them to hold the value for user actions
@@ -18,25 +21,23 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    // handle voting
+    // handle voting most of this voting code can be removed 
+    // if we use userID in an array on the project, then we can just use
+    // {array.findIndex(obj => obj._id === userId) ? voted : notVoted}
+    // and then some logic to delete upvote or downvote by removing the 
+    // userId from the array and putting it in the other array or just deleteing it
+    // vote counting can be a finction of const count = array.length
     const handleVote = (voteType) => {
         if (voteType === "upvote" && isDownvote === false) {
-            axios.put(`/api/v1/works/${id}`, { upvote: upvote + 1 })
+            dispatch(setUpvote({id, isDownvote}))
         } else if (voteType === "upvote" && isDownvote === true) {
+            dispatch(setUpvote({id, isDownvote}))
             setIsDownvote(false);
-            axios.put(`/api/v1/works/${id}`, {
-                upvote: upvote + 1,
-                downvote: downvote - 1,
-            })
         } else if (voteType === "downvote" && isUpvote === false) {
-            axios.put(`/api/v1/works/${id}`, { downvote: downvote + 1 })
+            dispatch(setDownvote({id, isUpvote}))
         } else if (voteType === "downvote" && isUpvote === true) {
+            dispatch(setDownvote({id, isUpvote}))
             setIsUpvote(false);
-            axios.put(`/api/v1/works/${id}`, {
-                upvote: upvote - 1,
-                downvote: downvote + 1,
-            })
-
         } else {
             console.log("You picked a bad function")
         }
@@ -44,9 +45,9 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
 
     const subtractOne = (voteType) => {
         if (voteType === "upvote") {
-            axios.put(`/api/v1/works/${id}`, { upvote: upvote - 1 })
+            dispatch(setSubractVote({id, voteType}));
         } else {
-            axios.put(`/api/v1/works/${id}`, { downvote: downvote - 1 })
+            dispatch(setSubractVote({id, voteType}));
         }
     }
 

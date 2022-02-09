@@ -10,8 +10,8 @@ const initialState = {
 // find by id or obj variable array
 // console.log(initialState.wurkers)
 // console.log("wurkerId: ", initialState.wurkers.map(wurker => wurker.id).indexOf(0));
+// console.log("wurkerId_filter: ", initialState.wurkers.filter((obj) => obj.id === 0))
 
-console.log("wurkerId_filter: ", initialState.wurkers.filter((obj) => obj.id === 0))
 // change the state based on the called function
 export const wurkersSlice = createSlice({
     name: 'wurkers',
