@@ -1,44 +1,67 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen';
+import ProjectList from './screens/ProjectList';
 import ProjectDetails from './screens/ProjectDetails';
 import WurkerDetails from './screens/WurkerDetails';
 import WurkerList from './screens/WurkerList';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
 const Tab = createMaterialTopTabNavigator();
+const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 // home screen for wurkers and projects with swipe function
-const HomeWurk = () => {
+const Home = () => {
     return (
-        <Tab.Navigator 
-        initialRouteName='Home'
-        screenOptions={{
-            tabBarShowLabel: false,
-            tabBarStyle: {
-                height: 0
-            }
-        }}
+        <Tab.Navigator
+            initialRouteName='ProjectList'
+            screenOptions={{
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    height: 0
+                }
+            }}
         >
             <Tab.Screen name="WurkerList" component={WurkerList} />
-            <Tab.Screen name="Home" component={HomeScreen}/>
+            <Tab.Screen name="ProjectList" component={ProjectList} />
         </Tab.Navigator>
+    )
+}
+
+// bottom nav bar component
+const HomeWurk = () => {
+    return (
+        <BottomTab.Navigator
+            screenOptions={{
+                tabBarShowLabel: false,
+                headerShown: false,
+                tabBarStyle: {
+                    position: 'absolute',
+                    bottom: 8,
+                    left: 8,
+                    right: 8,
+                    elevation: 0,
+                    backgroundColor: '#ffffff',
+                    borderRadius: 15,
+                    height: 60,
+                    ...style.cardShadow
+                }
+            }}
+
+        >
+            <BottomTab.Screen name="Home" component={Home} />
+        </BottomTab.Navigator>
     )
 }
 
 const StackNavigator = () => {
     return (
-        <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Group>
-                <Stack.Screen
-                    name="HomeWurk"
-                    component={HomeWurk}
-                />
+                <Stack.Screen name="HomeWurk" component={HomeWurk} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
                 <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
@@ -49,3 +72,17 @@ const StackNavigator = () => {
 };
 
 export default StackNavigator;
+
+const style = StyleSheet.create({
+    cardShadow: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+
+        elevation: 10,
+    },
+});
