@@ -15,7 +15,7 @@ const HomeScreen = () => {
     // const dispatch = useDispatch();
 
     return (
-        <SafeAreaView>
+        <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
             <FlatList
                 data={projects} // maybe add back projects?.data when pulling from server 

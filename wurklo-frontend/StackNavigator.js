@@ -8,6 +8,11 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import Search from './components/Search';
+import Post from './screens/Post';
+import Messages from './screens/Messages';
+import Profile from './screens/Profile';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -40,12 +45,12 @@ const HomeWurk = () => {
                 headerShown: false,
                 tabBarStyle: {
                     position: 'absolute',
-                    bottom: 8,
-                    left: 8,
-                    right: 8,
+                    bottom: 15,
+                    left: 20,
+                    right: 20,
                     elevation: 0,
                     backgroundColor: '#ffffff',
-                    borderRadius: 15,
+                    borderRadius: 25,
                     height: 60,
                     ...style.cardShadow
                 }
@@ -53,6 +58,10 @@ const HomeWurk = () => {
 
         >
             <BottomTab.Screen name="Home" component={Home} />
+            <BottomTab.Screen name="Search" component={Search} />
+            <BottomTab.Screen name="Post" component={Post} />
+            <BottomTab.Screen name="Messages" component={Messages} />
+            <BottomTab.Screen name="Profile" component={Profile} />
         </BottomTab.Navigator>
     )
 }

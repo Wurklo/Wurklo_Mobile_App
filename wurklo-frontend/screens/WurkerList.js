@@ -14,7 +14,7 @@ const WurkerList = () => {
     // const dispatch = useDispatch();
 
     return (
-        <SafeAreaView>
+        <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
             <FlatList
                 data={wurkers}
