@@ -24,10 +24,11 @@ export const projectsSlice = createSlice({
             // console.log("Index: ", action.payload)
             if (action.payload.isDownvote === false){
                 state.projects[index].upvote += 1;
-            }
-            if (action.payload.isDownvote === true) {
+            } else if (action.payload.isDownvote === true) {
                 state.projects[index].upvote += 1;
                 state.projects[index].downvote -= 1;
+            } else {
+                return state;
             }
 
         },
@@ -35,19 +36,21 @@ export const projectsSlice = createSlice({
             const index = initialState.projects.findIndex((obj) => obj._id === action.payload.id);
             if (action.payload.isUpvote === false) {
                 state.projects[index].downvote += 1;
-            }
-            if (action.payload.isUpvote === true) {
+            } else if (action.payload.isUpvote === true) {
                 state.projects[index].downvote += 1;
                 state.projects[index].upvote -= 1;
+            } else {
+                return state;
             }
         },
         setSubractVote: (state, action) => {
             const index = initialState.projects.findIndex((obj) => obj._id === action.payload.id);
             if (action.payload.voteType === "upvote") {
                 state.projects[index].upvote -= 1;
-            }
-            if (action.payload.voteType === "downvote") {
+            } else if (action.payload.voteType === "downvote") {
                 state.projects[index].downvote -= 1;
+            } else {
+                return state;
             }
         },
     },

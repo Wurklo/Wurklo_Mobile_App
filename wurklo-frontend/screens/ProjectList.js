@@ -1,4 +1,3 @@
-
 import { StatusBar } from 'expo-status-bar';
 import { FlatList } from 'react-native';
 import ProjectPost from '../components/ProjectPost';

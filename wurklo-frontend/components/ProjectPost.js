@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, Button } from 'react-n
 import React, { useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
-import axios from '../redux/axios';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import numeral from 'numeral';

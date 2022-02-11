@@ -4,36 +4,37 @@ import { useRoute } from '@react-navigation/native';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import axios from '../redux/axios';
 import moment from 'moment';
 import { useState } from 'react';
 import numeral from 'numeral';
+import { useDispatch } from 'react-redux';
+import { setDownvote, setUpvote, setSubractVote } from '../redux/slices/projects';
+
 
 const ProjectDetails = () => {
     const route = useRoute();
+    const dispatch = useDispatch();
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-
-    // handle voting
-    const handleVote = (voteType) => {
+    console.log(route.params.id)
+    // handle voting most of this voting code can be removed 
+    // if we use userID in an array on the project, then we can just use
+    // {array.findIndex(obj => obj._id === userId) ? voted : notVoted}
+    // and then some logic to delete upvote or downvote by removing the 
+    // userId from the array and putting it in the other array or just deleteing it
+    // vote counting can be a finction of const count = array.length
+    const handleVote = (voteType, id = route.params.id) => {
         if (voteType === "upvote" && isDownvote === false) {
-            axios.put(`/api/v1/works/${route.params.id}`, { upvote: route.params.upvote + 1 })
+            dispatch(setUpvote({id, isDownvote}))
         } else if (voteType === "upvote" && isDownvote === true) {
+            dispatch(setUpvote({id, isDownvote}))
             setIsDownvote(false);
-            axios.put(`/api/v1/works/${route.params.id}`, {
-                upvote: route.params.upvote + 1,
-                downvote: route.params.downvote - 1,
-            })
         } else if (voteType === "downvote" && isUpvote === false) {
-            axios.put(`/api/v1/works/${route.params.id}`, { downvote: route.params.downvote + 1 })
+            dispatch(setDownvote({id, isUpvote}))
         } else if (voteType === "downvote" && isUpvote === true) {
+            dispatch(setDownvote({id, isUpvote}))
             setIsUpvote(false);
-            axios.put(`/api/v1/works/${route.params.id}`, {
-                upvote: route.params.upvote - 1,
-                downvote: route.params.downvote + 1,
-            })
-
         } else {
             console.log("You picked a bad function")
         }
@@ -41,9 +42,9 @@ const ProjectDetails = () => {
 
     const subtractOne = (voteType) => {
         if (voteType === "upvote") {
-            axios.put(`/api/v1/works/${route.params.id}`, { upvote: route.params.upvote - 1 })
+            dispatch(setSubractVote({id, voteType}));
         } else {
-            axios.put(`/api/v1/works/${route.params.id}`, { downvote: route.params.downvote - 1 })
+            dispatch(setSubractVote({id, voteType}));
         }
     }
 

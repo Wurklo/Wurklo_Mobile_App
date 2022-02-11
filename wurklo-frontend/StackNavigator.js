@@ -15,6 +15,7 @@ import Post from './screens/Post';
 import Messages from './screens/Messages';
 import Profile from './screens/Profile';
 import tw from 'tailwind-react-native-classnames';
+import Login from './screens/Login';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -83,7 +84,7 @@ const HomeWurk = () => {
                 component={Post}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo style={[tw`absolute -top-3 bg-white p-2 px-3 -m-3`, {borderRadius: 40, overflow: 'hidden'}]} name='camera' size={55} color={focused ? "orange" : "gray"} />
+                        <Entypo style={[tw`absolute -top-2 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} name='camera' size={55} color={focused ? "orange" : "gray"} />
                     )
                 }}
             />
@@ -112,13 +113,20 @@ const HomeWurk = () => {
 const StackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Group>
-                <Stack.Screen name="HomeWurk" component={HomeWurk} />
-            </Stack.Group>
-            <Stack.Group screenOptions={{ presentation: 'modal' }}>
-                <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
-                <Stack.Screen name="WurkerDetails" component={WurkerDetails} />
-            </Stack.Group>
+            {user =false ? (
+                <>
+                    <Stack.Group>
+                        <Stack.Screen name="HomeWurk" component={HomeWurk} />
+                    </Stack.Group>
+                    <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                        <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
+                        <Stack.Screen name="WurkerDetails" component={WurkerDetails} />
+                    </Stack.Group>
+                </>
+            ) : (
+                <Stack.Screen name="Login" component={Login} />
+            )}
+
         </Stack.Navigator>
     );
 };
