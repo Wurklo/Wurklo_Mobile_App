@@ -9,10 +9,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Search from './components/Search';
 import Post from './screens/Post';
 import Messages from './screens/Messages';
 import Profile from './screens/Profile';
+import tw from 'tailwind-react-native-classnames';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -57,11 +59,52 @@ const HomeWurk = () => {
             }}
 
         >
-            <BottomTab.Screen name="Home" component={Home} />
-            <BottomTab.Screen name="Search" component={Search} />
-            <BottomTab.Screen name="Post" component={Post} />
-            <BottomTab.Screen name="Messages" component={Messages} />
-            <BottomTab.Screen name="Profile" component={Profile} />
+            <BottomTab.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Entypo name='home' size={30} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
+            <BottomTab.Screen
+                name="Search"
+                component={Search}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <FontAwesome style={tw`mr-4`} name='search' size={30} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
+            <BottomTab.Screen
+                name="Post"
+                component={Post}
+                options={{
+                    presentation: 'modal',
+                    tabBarIcon: ({ focused }) => (
+                        <Entypo style={[tw`absolute -top-3 bg-white p-2 px-3 -m-3`, {borderRadius: 40, overflow: 'hidden'}]} name='camera' size={55} color={focused ? "orange" : "gray"} />
+                    )
+                }}
+            />
+            <BottomTab.Screen
+                name="Messages"
+                component={Messages}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Entypo style={tw`ml-4`} name='message' size={32} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
+            <BottomTab.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Ionicons name='person' size={30} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
         </BottomTab.Navigator>
     )
 }
