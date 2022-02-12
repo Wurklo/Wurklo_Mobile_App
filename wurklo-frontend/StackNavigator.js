@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProjectList from './screens/ProjectList';
 import ProjectDetails from './screens/ProjectDetails';
@@ -16,6 +16,9 @@ import Messages from './screens/Messages';
 import Profile from './screens/Profile';
 import tw from 'tailwind-react-native-classnames';
 import Login from './screens/Login';
+import LoginModal from './screens/LoginModal';
+import RegisterModal from './screens/RegisterModal';
+import { useSelector } from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -111,9 +114,11 @@ const HomeWurk = () => {
 }
 
 const StackNavigator = () => {
+    const { user } = useSelector((state) => state.user);
+
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {user =false ? (
+            {user ? (
                 <>
                     <Stack.Group>
                         <Stack.Screen name="HomeWurk" component={HomeWurk} />
@@ -124,7 +129,15 @@ const StackNavigator = () => {
                     </Stack.Group>
                 </>
             ) : (
-                <Stack.Screen name="Login" component={Login} />
+                <>
+                    <Stack.Group>
+                        <Stack.Screen name="Login" component={Login} />
+                    </Stack.Group>
+                    <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                        <Stack.Screen name="LoginModal" component={LoginModal} />
+                        <Stack.Screen name="RegisterModal" component={RegisterModal} />
+                    </Stack.Group>
+                </>
             )}
 
         </Stack.Navigator>
