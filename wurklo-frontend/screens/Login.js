@@ -1,11 +1,17 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { StatusBar } from 'expo-status-bar';
+import { ImageBackground } from 'react-native';
 
 const Login = () => {
   return (
-    <View style={tw`flex-1 bg-white justify-around`}>
+    <View style={tw`flex-1`}>
+      <ImageBackground
+        resizeMode="cover"
+        style={tw`flex-1 justify-around`}
+        source={{ uri: "https://i.ibb.co/WFP9vP9/login-bg.jpg" }}
+      >
       <StatusBar hidden />
       <View style={tw`flex-row justify-center`}>
         <Image
@@ -15,7 +21,7 @@ const Login = () => {
       </View>
       <View style={tw`flex-row justify-around`}>
         <View style={tw``}>
-          <Text style={tw`font-black text-blue-500 text-3xl tracking-tight`}>WURKLO</Text>
+          <Text style={tw`font-black text-white text-3xl tracking-tight`}>WURKLO</Text>
         </View>
         <View>
           <Text style={tw`font-black text-blue-500 text-3xl ml-1 tracking-tight`}>A</Text>
@@ -46,7 +52,8 @@ const Login = () => {
           <Text style={tw`p-2 px-4 font-semibold text-xl text-white text-center`}>Register</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
+    </View >
   );
 };
 
