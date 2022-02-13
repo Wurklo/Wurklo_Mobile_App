@@ -1,17 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList } from 'react-native';
 import ProjectPost from '../components/ProjectPost';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-// import { setBye, setHello } from '../redux/slices/projects';
+import { getProjects } from '../redux/slices/projects';
 
 const HomeScreen = () => {
     //redux
     const { projects } = useSelector((state) => state.projects)
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getProjects())
+    }, [])
 
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>

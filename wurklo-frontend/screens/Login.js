@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { StatusBar } from 'expo-status-bar';
 import { ImageBackground } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/core';
 
 const Login = () => {
@@ -34,21 +33,6 @@ const Login = () => {
             <Text style={[tw`font-bold text-blue-500 text-3xl ml-1 tracking-tight`, styles.fontBold]}>WURKERS</Text>
           </View>
         </View>
-        {/* <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-
-        >
-          <View style={tw`mx-10`}>
-            <TextInput
-              style={tw`text-center text-xl pb-2 bg-gray-100 rounded-2xl mb-2`}
-              placeholder='Username'
-            />
-            <TextInput
-              style={tw`text-center text-xl pb-2 bg-gray-100 rounded-2xl`}
-              placeholder='Password'
-            />
-          </View>
-        </KeyboardAvoidingView> */}
         <View style={tw`mx-20`}>
           <TouchableOpacity
             onPress={() => navigation.navigate("LoginModal")}
@@ -56,12 +40,12 @@ const Login = () => {
           >
             <Text style={tw`p-2 px-4 font-semibold text-xl text-white text-center`}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate("RegisterModal")}
             style={[tw`bg-gray-400 rounded-full`, styles.cardShadow]}
           >
             <Text style={tw`p-2 px-4 font-semibold text-xl text-white text-center`}>Register</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ImageBackground>
     </View >

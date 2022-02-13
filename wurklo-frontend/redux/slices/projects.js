@@ -1,29 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../axios';
 import data from './data'
 
-//set initial state
-const initialState = {
-    projects: data.PROJECTS
-}
-
-// find by id or obj variable array
-// console.log(initialState.projects)
-// console.log("projectId: ", initialState.projects.map(project => project._id).indexOf('61fedb81219b272b68115c0a'));
-// console.log("projectId_findIndex: ", initialState.projects.findIndex((obj) => obj._id === '61fedb81219b272b68115c0a'))
-// console.log("projectId_filter: ", initialState.projects.filter((obj) => obj._id === '61fedb81219b272b68115c0a'))
+export const getProjects = createAsyncThunk(
+    "projects/getProjects",
+    async () => {
+        const response = await axios.get('/api/v1/works')
+        console.log("Response:=========================================== ", response.data.data);
+        return response.data.data
+    })
 
 // change the state based on the called functio
 export const projectsSlice = createSlice({
     name: 'projects',
-    initialState,
+    initialState: {
+        projects: null,
+        status: null,
+    },
     reducers: {
         setUpvote: (state, action) => {
             const index = initialState.projects.findIndex((obj) => obj._id === action.payload.id);
             // console.log("Payload: ", action.payload)
             // console.log("Index: ", action.payload)
-            if (action.payload.isDownvote === false){
-                state.projects[index].upvote += 1;
+            if (action.payload.isDownvote === false) {
+                return state.projects[index].upvote += 1;
             } else if (action.payload.isDownvote === true) {
                 state.projects[index].upvote += 1;
                 state.projects[index].downvote -= 1;
@@ -54,6 +54,19 @@ export const projectsSlice = createSlice({
             }
         },
     },
+    extraReducers: builder => {
+        builder
+            .addCase(getProjects.pending, (state, action) => {
+                state.status = 'loading';
+            })
+            .addCase(getProjects.fulfilled, (state, action) => {
+                state.status = 'success';
+                state.projects = action.payload;
+            })
+            .addCase(getProjects, (state, action) => {
+                state.status = "failed";
+            })
+    }
 })
 
 //action creators are generated for each case reducer function
@@ -61,6 +74,16 @@ export const { setUpvote, setDownvote, setSubractVote } = projectsSlice.actions;
 
 export default projectsSlice.reducer;
 
+//set initial state
+// const initialState = {
+//     projects: data.PROJECTS
+// }
+
+// find by id or obj variable array
+// console.log(initialState.projects)
+// console.log("projectId: ", initialState.projects.map(project => project._id).indexOf('61fedb81219b272b68115c0a'));
+// console.log("projectId_findIndex: ", initialState.projects.findIndex((obj) => obj._id === '61fedb81219b272b68115c0a'))
+// console.log("projectId_filter: ", initialState.projects.filter((obj) => obj._id === '61fedb81219b272b68115c0a'))
 
 // get projects and store them in projects useState axios method may change to thunk for redux
 // useEffect(() => {

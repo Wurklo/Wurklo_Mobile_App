@@ -50,13 +50,13 @@ const ProjectDetails = () => {
 
     return (
         <ScrollView style={[
-            tw`flex bg-white mb-1`,
+            tw`flex bg-white mb-1 pt-3`,
             styles.cardShadow,
         ]}>
             <View>
                 <View style={tw`flex-row justify-around items-center my-4 relative`}>
                     <View style={tw`flex justify-center items-center`}>
-                        <Text style={tw`font-semibold text-3xl`}>{route.params.title}</Text>
+                        <Text style={tw`font-bold text-2xl`}>{route.params.title}</Text>
                         <Text style={tw``}>{moment(route.params.created).fromNow()}</Text>
                     </View>
                 </View>
