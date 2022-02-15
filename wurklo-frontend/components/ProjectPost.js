@@ -14,11 +14,11 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    const userId = 45;
+    const userId = 122;
     // console.log("Vote Found:=================================================================== ", upvote.indexOf(userId))
 
-    const onVoting = () => {
-        dispatch(voteProject({userId, upvote}))
+    const handleVote = () => {
+        dispatch(voteProject({userId, upvote, id}))
     }
 
     // the below states can be moved to either the user object or the project object when built
@@ -91,7 +91,7 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
             </View>
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
                 <View style={tw`relative`}>
-                    <Entypo onPress={onVoting} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
+                    <Entypo onPress={handleVote} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
                     <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(upvote.length).format('0a')}</Text>
                 </View>
                 <View style={tw`relative`}>

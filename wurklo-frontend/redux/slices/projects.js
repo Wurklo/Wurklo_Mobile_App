@@ -18,11 +18,10 @@ export const voteProject = createAsyncThunk(
     "projects/updateProject",
     async (project) => {
         try {
-            const response = await axios.put("/works/61fe5ee76b924c82c53b7513", {upvote: [...project.upvote, project.userId]})
-            console.log("Response --------------------", response.data)
+            const response = await axios.put(`/works/${project.id}`, {upvote: [...project.upvote, project.userId]})
             return response.data
         } catch (err) {
-            console.log("Project vote failed++++++++++++++++++++++: ", err)
+            console.log("Project vote failed: ", err)
         }
     }
 )
@@ -31,7 +30,7 @@ export const voteProject = createAsyncThunk(
 export const projectsSlice = createSlice({
     name: 'projects',
     initialState: {
-        projects: "",
+        projects: null,
         status: null,
     },
     reducers: {
@@ -76,7 +75,9 @@ export const projectsSlice = createSlice({
                 state.status = "failed";
             })
             .addCase(voteProject.fulfilled, (state, { payload }) => {
-                console.log("Payload =================",payload)
+                const index = state.projects.findIndex((obj) => obj._id === payload.data._id);
+                state.projects[index].upvote = payload.data.upvote
+                console.log("NEW PROJECTS ======================: ", [...state.projects, payload])
             })
     }
 })
