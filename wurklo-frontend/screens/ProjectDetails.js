@@ -17,7 +17,8 @@ const ProjectDetails = () => {
     const [isUpvote, setIsUpvote] = useState(false);
     const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-    console.log(route.params.id)
+
+    const userId = 18;
     // handle voting most of this voting code can be removed 
     // if we use userID in an array on the project, then we can just use
     // {array.findIndex(obj => obj._id === userId) ? voted : notVoted}
@@ -85,12 +86,12 @@ const ProjectDetails = () => {
             </View>
             <View style={tw`flex-row justify-between mx-5 pb-5`}>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={isUpvote ? "lightgreen" : "lightgray"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(route.params.upvote).format('0a')}</Text>
+                    <Entypo onPress={() => isUpvote ? setIsUpvote(false) & subtractOne("upvote") : setIsUpvote(true) & handleVote("upvote") & setIsDownvote(false)} name="thumbs-up" size={30} color={route.params.upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
+                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(route.params.upvote.length).format('0a')}</Text>
                 </View>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={isDownvote ? "pink" : "lightgray"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(route.params.downvote).format('0a')}</Text>
+                    <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={route.params.downvote.indexOf(userId) === -1 ? "lightgray" : "pink"} />
+                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(route.params.downvote.length).format('0a')}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
                 <Entypo name="message" size={30} color="skyblue" />

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import ProjectPost from '../components/ProjectPost';
 import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjects } from '../redux/slices/projects';
+import tw from 'tailwind-react-native-classnames';
 
 const HomeScreen = () => {
     //redux
@@ -21,6 +22,7 @@ const HomeScreen = () => {
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
             <FlatList
+                contentContainerStyle={tw`pb-32`}
                 data={projects} // maybe add back projects?.data when pulling from server 
                 keyExtractor={(item) => item._id}
                 renderItem={({ item: project }) =>
@@ -36,7 +38,6 @@ const HomeScreen = () => {
                         created={project.created}
                     />
                 }
-
             />
         </SafeAreaView>
     );

@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
+import tw from 'tailwind-react-native-classnames';
 // import { setBye, setHello } from '../redux/slices/projects';
 
 const WurkerList = () => {
@@ -17,6 +18,7 @@ const WurkerList = () => {
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
             <FlatList
+                contentContainerStyle={tw`pb-32`}
                 data={wurkers}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item: wurker }) =>
@@ -30,7 +32,6 @@ const WurkerList = () => {
                     />
                 }
             />
-
         </SafeAreaView>
     );
 };
