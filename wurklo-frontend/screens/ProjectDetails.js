@@ -1,13 +1,13 @@
 import { View, Text, Image, ScrollView } from 'react-native';
-import React, { useEffect } from 'react';
-import { useRoute } from '@react-navigation/native';
+import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 import moment from 'moment';
 import { useState } from 'react';
 import numeral from 'numeral';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { upvoteProject, downvoteProject } from '../redux/slices/projects';
 
 
@@ -15,18 +15,24 @@ const ProjectDetails = () => {
     const route = useRoute();
     const dispatch = useDispatch();
     const [isFavorite, setIsFavorite] = useState(false);
-    const { id, title, image, description, upvote, downvote, payrate, collab, created, profilePic } = route.params;
+    const { id, profilePic } = route.params;
+
+    // workaround for params not updating when redux state dipatches handlevote
+    const { projects } = useSelector((state) => state.projects);
+    const index = projects.findIndex((obj) => obj._id === id);
+    const {title, image, description, upvote, downvote, payrate, collab, created} = projects[index];
+
+
 
     const userId = 110;
 
     const handleVote = (voteType) => {
-
         if (voteType === "upvote") {
-            dispatch(upvoteProject({ userId, downvote, upvote, id }))
+            dispatch(upvoteProject({ userId, downvote, upvote, id }));
         } else if (voteType === "downvote") {
-            dispatch(downvoteProject({ userId, downvote, upvote, id }))
+            dispatch(downvoteProject({ userId, downvote, upvote, id }));
         } else {
-            console.log("You entered a bad vote")
+            console.log("You entered a bad vote");
         }
     }
 

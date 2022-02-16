@@ -18,7 +18,6 @@ export const getProjects = createAsyncThunk(
 export const upvoteProject = createAsyncThunk(
     "projects/upvoteProject",
     async ({downvote, upvote, userId, id}) => {
-        console.log("--------------------------------------------", downvote)
         if (upvote.indexOf(userId) !== -1) {
             try {
                 const response = await axios.put(`/works/${id}`, {upvote: upvote.filter(id => id !== userId)})

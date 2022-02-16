@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, Button } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +13,7 @@ const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Mus
 const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate, collab, created }) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    
+
     const [isFavorite, setIsFavorite] = useState(false);
 
     const userId = 110;
