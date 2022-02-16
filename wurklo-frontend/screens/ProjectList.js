@@ -1,34 +1,29 @@
-
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import tw from 'tailwind-react-native-classnames';
+import { FlatList, Text, View } from 'react-native';
 import ProjectPost from '../components/ProjectPost';
-import React, { useState, useEffect } from 'react';
-import axios from '../axios';
+import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useNavigation } from '@react-navigation/core';
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjects } from '../redux/slices/projects';
+import tw from 'tailwind-react-native-classnames';
 
 const HomeScreen = () => {
-    const [projects, setProjects] = useState();
-    const navigation = useNavigation();
+    //redux
+    const { projects } = useSelector((state) => state.projects)
+    const dispatch = useDispatch();
 
-    // get projects and store them in projects useState
     useEffect(() => {
-        axios.get('/api/v1/works').then((response) => {
-            if (response.data.data.length > 0) {
-                setProjects(response.data);
-            } else {
-                console.log(response.data)
-            }
-        });
+        dispatch(getProjects())
     }, [])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
             <FlatList
-                data={projects?.data}
+                contentContainerStyle={tw`pb-32`}
+                data={projects} // maybe add back projects?.data when pulling from server 
                 keyExtractor={(item) => item._id}
                 renderItem={({ item: project }) =>
                     <ProjectPost
@@ -43,7 +38,6 @@ const HomeScreen = () => {
                         created={project.created}
                     />
                 }
-
             />
         </SafeAreaView>
     );

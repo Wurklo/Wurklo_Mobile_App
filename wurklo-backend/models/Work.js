@@ -24,10 +24,10 @@ const WorkSchema = new mongoose.Schema({
     },
 
     upvote: {
-        type: Number,
+        type: Array,
     },
     downvote: {
-        type: Number,
+        type: Array,
     },
 
     pay_rate: Number,
