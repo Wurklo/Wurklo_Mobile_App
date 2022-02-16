@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import numeral from 'numeral';
 import { useDispatch } from 'react-redux';
-import { setDownvote, setUpvote, setSubractVote, voteProject } from '../redux/slices/projects';
+import { upvoteProject, downvoteProject } from '../redux/slices/projects';
 
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
@@ -14,48 +14,21 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    const userId = 122;
-    // console.log("Vote Found:=================================================================== ", upvote.indexOf(userId))
+    const userId = 110;
 
-    const handleVote = () => {
-        dispatch(voteProject({userId, upvote, id}))
+    const handleVote = (voteType) => {
+        if (voteType === "upvote") {
+            dispatch(upvoteProject({ userId, downvote, upvote, id }))
+        } else if (voteType === "downvote") {
+            dispatch(downvoteProject({ userId, downvote, upvote, id }))
+        } else {
+            console.log("You entered a bad vote")
+        }
     }
 
     // the below states can be moved to either the user object or the project object when built
     // for now we use them to hold the value for user actions
-    const [isUpvote, setIsUpvote] = useState(false);
-    const [isDownvote, setIsDownvote] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-
-    // handle voting most of this voting code can be removed 
-    // if we use userID in an array on the project, then we can just use
-    // {array.findIndex(obj => obj._id === userId) ? voted : notVoted}
-    // and then some logic to delete upvote or downvote by removing the 
-    // userId from the array and putting it in the other array or just deleteing it
-    // vote counting can be a finction of const count = array.length
-    // const handleVote = (voteType) => {
-    //     if (voteType === "upvote" && isDownvote === false) {
-    //         dispatch(setUpvote({id, isDownvote}))
-    //     } else if (voteType === "upvote" && isDownvote === true) {
-    //         dispatch(setUpvote({id, isDownvote}))
-    //         setIsDownvote(false);
-    //     } else if (voteType === "downvote" && isUpvote === false) {
-    //         dispatch(setDownvote({id, isUpvote}))
-    //     } else if (voteType === "downvote" && isUpvote === true) {
-    //         dispatch(setDownvote({id, isUpvote}))
-    //         setIsUpvote(false);
-    //     } else {
-    //         console.log("You picked a bad function")
-    //     }
-    // }
-
-    // const subtractOne = (voteType) => {
-    //     if (voteType === "upvote") {
-    //         dispatch(setSubractVote({id, voteType}));
-    //     } else {
-    //         dispatch(setSubractVote({id, voteType}));
-    //     }
-    // }
 
     return (
         <View style={[
@@ -91,11 +64,11 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
             </View>
             <View style={tw`flex-row justify-between mb-1 mx-4`}>
                 <View style={tw`relative`}>
-                    <Entypo onPress={handleVote} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
+                    <Entypo onPress={() => handleVote("upvote")} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
                     <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(upvote.length).format('0a')}</Text>
                 </View>
                 <View style={tw`relative`}>
-                    <Entypo onPress={() => isDownvote ? setIsDownvote(false) & subtractOne("downvote") : setIsDownvote(true) & handleVote("downvote") & setIsUpvote(false)} name="thumbs-down" size={30} color={downvote.indexOf(userId) === -1 ? "lightgray" : "pink"} />
+                    <Entypo onPress={() => handleVote("downvote")} name="thumbs-down" size={30} color={downvote.indexOf(userId) === -1 ? "lightgray" : "pink"} />
                     <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(downvote.length).format('0a')}</Text>
                 </View>
                 <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />

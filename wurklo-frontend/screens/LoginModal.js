@@ -6,10 +6,8 @@ import { setUser } from '../redux/slices/Login';
 
 
 const LoginModal = () => {
-    const { user } = useSelector((state) => state.user)
     const dispatch = useDispatch();
 
-    console.log(user)
     return (
         <ScrollView contentContainerStyle={tw`flex-1 justify-center`}>
             <KeyboardAvoidingView

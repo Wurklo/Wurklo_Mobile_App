@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../axios';
-import data from './data'
 
+// get projects
 export const getProjects = createAsyncThunk(
     "projects/getProjects",
     async () => {
@@ -14,14 +14,64 @@ export const getProjects = createAsyncThunk(
     }
 )
 
-export const voteProject = createAsyncThunk(
-    "projects/updateProject",
-    async (project) => {
-        try {
-            const response = await axios.put(`/works/${project.id}`, {upvote: [...project.upvote, project.userId]})
-            return response.data
-        } catch (err) {
-            console.log("Project vote failed: ", err)
+// upvote a project
+export const upvoteProject = createAsyncThunk(
+    "projects/upvoteProject",
+    async ({downvote, upvote, userId, id}) => {
+        if (upvote.indexOf(userId) !== -1) {
+            try {
+                const response = await axios.put(`/works/${id}`, {upvote: upvote.filter(id => id !== userId)})
+                return response.data
+            } catch (err) {
+                console.log("Project upvote failed: ", err)
+            }
+        } else {
+            if (downvote.indexOf(userId) !== -1) {
+                try {
+                    const response = await axios.put(`/works/${id}`, {upvote: [...upvote, userId], downvote: downvote.filter(id => id !== userId)})
+                    return response.data
+                } catch (err) {
+                    console.log("Project upvote failed: ", err)
+                }
+            } else {
+                try {
+                    const response = await axios.put(`/works/${id}`, {upvote: [...upvote, userId]})
+                    return response.data
+                } catch (err) {
+                    console.log("Project upvote failed: ", err)
+                }
+            }
+        }
+    }
+)
+
+// downvote a project
+export const downvoteProject = createAsyncThunk(
+    "projects/downvoteProject",
+    async ({downvote, upvote, userId, id}) => {
+        if (downvote.indexOf(userId) !== -1) {
+            try {
+                const response = await axios.put(`/works/${id}`, {downvote: downvote.filter(id => id !== userId)})
+                return response.data
+            } catch (err) {
+                console.log("Project subtract downvote failed: ", err)
+            }
+        } else {
+            if (upvote.indexOf(userId) !== -1) {
+                try {
+                    const response = await axios.put(`/works/${id}`, {downvote: [...downvote, userId], upvote: upvote.filter(id => id !== userId)})
+                    return response.data
+                } catch (err) {
+                    console.log("Project downvote failed: ", err)
+                }
+            } else {
+                try {
+                    const response = await axios.put(`/works/${id}`, {downvote: [...downvote, userId]})
+                    return response.data
+                } catch (err) {
+                    console.log("Project downvote failed: ", err)
+                }
+            }
         }
     }
 )
@@ -34,33 +84,7 @@ export const projectsSlice = createSlice({
         status: null,
     },
     reducers: {
-        setUpvote: (state, action) => {
-            const index = state.projects.findIndex((obj) => obj._id === action.payload.id);
-            if (action.payload.isDownvote === false) {
-                return state.projects[index].upvote += 1;
-            } else if (action.payload.isDownvote === true) {
-                state.projects[index].upvote += 1;
-                state.projects[index].downvote -= 1;
-            }
-
-        },
-        setDownvote: (state, action) => {
-            const index = state.projects.findIndex((obj) => obj._id === action.payload.id);
-            if (action.payload.isUpvote === false) {
-                state.projects[index].downvote += 1;
-            } else if (action.payload.isUpvote === true) {
-                state.projects[index].downvote += 1;
-                state.projects[index].upvote -= 1;
-            }
-        },
-        setSubractVote: (state, action) => {
-            const index = state.projects.findIndex((obj) => obj._id === action.payload.id);
-            if (action.payload.voteType === "upvote") {
-                state.projects[index].upvote -= 1;
-            } else if (action.payload.voteType === "downvote") {
-                state.projects[index].downvote -= 1;
-            }
-        },
+        // add local state reducers here
     },
     extraReducers: builder => {
         builder
@@ -74,10 +98,15 @@ export const projectsSlice = createSlice({
             .addCase(getProjects, (state, action) => {
                 state.status = "failed";
             })
-            .addCase(voteProject.fulfilled, (state, { payload }) => {
+            .addCase(upvoteProject.fulfilled, (state, { payload }) => {
                 const index = state.projects.findIndex((obj) => obj._id === payload.data._id);
                 state.projects[index].upvote = payload.data.upvote
-                console.log("NEW PROJECTS ======================: ", [...state.projects, payload])
+                state.projects[index].downvote = payload.data.downvote
+            })
+            .addCase(downvoteProject.fulfilled, (state, { payload }) => {
+                const index = state.projects.findIndex((obj) => obj._id === payload.data._id);
+                state.projects[index].downvote = payload.data.downvote
+                state.projects[index].upvote = payload.data.upvote
             })
     }
 })
