@@ -20,8 +20,9 @@ const ProjectDetails = () => {
     // workaround for params not updating when redux state dipatches handlevote
     const { projects } = useSelector((state) => state.projects);
     const index = projects.findIndex((obj) => obj._id === id);
-    const {title, image, description, upvote, downvote, payrate, collab, created} = projects[index];
+    const {title, image, description, upvote, downvote, pay_rate, collab, created} = projects[index];
 
+    console.log(projects)
 
 
     const userId = 110;
@@ -55,7 +56,7 @@ const ProjectDetails = () => {
             </View>
             <View style={tw`mx-1`}>
                 <Text style={tw`text-2xl font-bold text-center p-2`}>
-                    {numeral(payrate).format('0.0a')} WURK
+                    {numeral(pay_rate).format('0.0a')} WURK
                 </Text>
                 <Text style={tw`mx-6 mb-3`}>{description}</Text>
                 <View style={tw`flex-row justify-around my-4`}>

@@ -7,6 +7,9 @@ export default DATA = {
             description: "Hi there, I have been doing plumbing for 2 years. I have experience fixing house, restaurants, and office space. If you need a reliable and fast service I am your guy. I have the necessary equipment and an get the parts at a discount rate from my distributer.",
             skill: "Plumber",
             rating: 5,
+            upvote: [0],
+            downvote: [0],
+            pay_rate: 50,
         }
         // },
         // {

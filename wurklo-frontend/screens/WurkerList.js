@@ -1,18 +1,16 @@
-import { View, Text, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import React from 'react';
 import WurkerPost from '../components/WurkerPost';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import tw from 'tailwind-react-native-classnames';
-// import { setBye, setHello } from '../redux/slices/projects';
 
 const WurkerList = () => {
     //redux
     const { wurkers } = useSelector((state) => state.wurkers)
-    // const dispatch = useDispatch();
 
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>
@@ -29,6 +27,9 @@ const WurkerList = () => {
                         skill={wurker.skill}
                         rating={wurker.rating}
                         description={wurker.description}
+                        payrate={wurker.pay_rate}
+                        upvote={wurker.upvote}
+                        downvote={wurker.downvote}
                     />
                 }
             />
