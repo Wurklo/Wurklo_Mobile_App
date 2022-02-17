@@ -36,6 +36,7 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
         ]}>
             <TouchableOpacity
                 onPress={() => navigation.navigate("ProjectDetails", { id, title, image, description, upvote, downvote, payrate, collab, created, profilePic })}
+                activeOpacity={0.8}
             >
                 <View style={tw`flex-row justify-around items-center my-2 relative`}>
                     <Image
