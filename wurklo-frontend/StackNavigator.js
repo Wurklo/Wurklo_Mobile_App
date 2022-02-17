@@ -7,24 +7,23 @@ import WurkerList from './screens/WurkerList';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import Search from './components/Search';
 import Post from './screens/Post';
-import Messages from './screens/Messages';
+import PersonalChat from './screens/PersonalChat';
 import Profile from './screens/Profile';
 import tw from 'tailwind-react-native-classnames';
 import Login from './screens/Login';
 import LoginModal from './screens/LoginModal';
 import RegisterModal from './screens/RegisterModal';
 import { useSelector } from 'react-redux';
+import GroupChat from './screens/GroupChat';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// home screen for wurkers and projects with swipe function
+// home screen for wurkers and projects with swipe function ** top nav **
 const Home = () => {
     return (
         <Tab.Navigator
@@ -38,6 +37,41 @@ const Home = () => {
         >
             <Tab.Screen name="WurkerList" component={WurkerList} />
             <Tab.Screen name="ProjectList" component={ProjectList} />
+        </Tab.Navigator>
+    )
+}
+
+// top nav for messages
+const Messages = () => {
+    return (
+        <Tab.Navigator
+            initialRouteName='PersonalChat'
+            screenOptions={{
+                tabBarShowLabel: false,
+                headerShown: false,
+                tabBarStyle: {
+                    marginTop: 30,
+                }
+            }}
+        >
+            <Tab.Screen
+                name="Personal"
+                component={PersonalChat}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialIcons style={tw`-mr-7 -ml-3 -mt-3`} name='people' size={50} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
+            <Tab.Screen
+                name="Group"
+                component={GroupChat}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialIcons style={tw`-mr-7 -ml-3 -mt-3 `} name='groups' size={50} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
         </Tab.Navigator>
     )
 }
@@ -87,7 +121,7 @@ const HomeWurk = () => {
                 component={Post}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo style={[tw`absolute -top-2 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} name='camera' size={55} color={focused ? "orange" : "gray"} />
+                        <Entypo style={[tw`absolute -top-2 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} name='camera' size={55} color={focused ? "orange" : "grey"} />
                     )
                 }}
             />
@@ -157,5 +191,5 @@ const style = StyleSheet.create({
         shadowRadius: 1.41,
 
         elevation: 10,
-    },
+    }
 });
