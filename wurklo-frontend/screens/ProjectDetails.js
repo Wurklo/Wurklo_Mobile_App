@@ -22,10 +22,7 @@ const ProjectDetails = () => {
     const index = projects.findIndex((obj) => obj._id === id);
     const {title, image, description, upvote, downvote, pay_rate, collab, created} = projects[index];
 
-    console.log(projects)
-
-
-    const userId = 110;
+    const userId = 110; // temporary userId until connecting userprofile
 
     const handleVote = (voteType) => {
         if (voteType === "upvote") {

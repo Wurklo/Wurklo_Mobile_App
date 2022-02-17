@@ -17,21 +17,39 @@ export const wurkersSlice = createSlice({
     name: 'wurkers',
     initialState,
     reducers: {
-        setHello: (state, action) => {
-            state.wurkers += action.payload;
+        setDownvote: (state, {payload: {id, upvote, downvote, userId}}) => {
+            const wurkerIndex = state.wurkers.findIndex((wurkers) => wurkers.id === id);
+            const voteIndex = downvote.indexOf(userId);
+            if (voteIndex !== -1) {
+                state.wurkers[wurkerIndex].downvote = downvote.filter(id => id !== userId);
+            } else {
+                if (upvote.indexOf(userId !== -1)) {
+                    state.wurkers[wurkerIndex].downvote = [...downvote, userId];
+                    state.wurkers[wurkerIndex].upvote = upvote.filter(id => id !== userId);
+                } else {
+                    state.wurkers[wurkerIndex].downvote = [...downvote, userId];
+                }
+            }
         },
-        setBye: (state) => {
-            state.wurkers = state.wurkers;
+        setUpvote: (state, {payload: {id, upvote, downvote, userId}}) => {
+            const wurkerIndex = state.wurkers.findIndex((wurkers) => wurkers.id === id);
+            const voteIndex = upvote.indexOf(userId);
+            if (voteIndex !== -1) {
+                state.wurkers[wurkerIndex].upvote = upvote.filter(id => id !== userId);
+            } else {
+                if (upvote.indexOf(userId !== -1)) {
+                    state.wurkers[wurkerIndex].upvote = [...upvote, userId];
+                    state.wurkers[wurkerIndex].downvote = downvote.filter(id => id !== userId);
+                } else {
+                    state.wurkers[wurkerIndex].upvote = [...upvote, userId];
+                }
+            }
         },
-        // setBye: (state, action) => {
-        //     state.bye = action.payload;
-        //     console.log(state)
-        // }
     },
 })
 
 //action creators are generated for each case reducer function
-export const { setHello, setBye } = wurkersSlice.actions;
+export const { setUpvote, setDownvote } = wurkersSlice.actions;
 
 export default wurkersSlice.reducer;
 

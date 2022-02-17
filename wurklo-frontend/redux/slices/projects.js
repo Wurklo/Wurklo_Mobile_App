@@ -23,7 +23,7 @@ export const upvoteProject = createAsyncThunk(
                 const response = await axios.put(`/works/${id}`, {upvote: upvote.filter(id => id !== userId)})
                 return response.data
             } catch (err) {
-                console.log("Project upvote failed: ", err)
+                console.log("Project upvote removal failed: ", err)
             }
         } else {
             if (downvote.indexOf(userId) !== -1) {
@@ -99,12 +99,12 @@ export const projectsSlice = createSlice({
                 state.status = "failed";
             })
             .addCase(upvoteProject.fulfilled, (state, { payload }) => {
-                const index = state.projects.findIndex((obj) => obj._id === payload.data._id);
+                const index = state.projects.findIndex((project) => project._id === payload.data._id);
                 state.projects[index].upvote = payload.data.upvote
                 state.projects[index].downvote = payload.data.downvote
             })
             .addCase(downvoteProject.fulfilled, (state, { payload }) => {
-                const index = state.projects.findIndex((obj) => obj._id === payload.data._id);
+                const index = state.projects.findIndex((project) => project._id === payload.data._id);
                 state.projects[index].downvote = payload.data.downvote
                 state.projects[index].upvote = payload.data.upvote
             })

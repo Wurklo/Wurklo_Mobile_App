@@ -5,16 +5,24 @@ import tw from 'tailwind-react-native-classnames';
 import { AirbnbRating } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import numeral from 'numeral';
+import numeral from 'numeral'; 
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { useDispatch } from 'react-redux';
+import { setUpvote, setDownvote } from '../redux/slices/wurkers';
 
 const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvote, downvote }) => {
     const navigation = useNavigation();
     const [isFavorite, setIsFavorite] = useState(false);
+    const dispatch = useDispatch();
 
     const userId = 110;
-    console.log(upvote)
+    const handleVote = (voteType) => {
+        if (voteType === "upvote") {
+            dispatch(setUpvote({downvote, upvote, userId, id}))
+        } else if (voteType === "downvote") {
+            dispatch(setDownvote({downvote, upvote, userId, id}))
+        }
+    }
 
     return (
         <View style={[
@@ -23,7 +31,8 @@ const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvo
         ]}>
             <TouchableOpacity
                 onPress={() => navigation.navigate("WurkerDetails", { id, image, name, skill, rating, description })}
-                style={tw`flex justify-center items-center p-2 bg-white mb-1`}
+                style={tw`flex justify-center items-center p-2 bg-white -mb-1`}
+                activeOpacity={0.8}
             >
                 <Image
                     style={tw`rounded-full h-44 w-64`}
@@ -42,7 +51,7 @@ const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvo
                     {numeral(payrate).format('0.0a')} WURK
                 </Text>
             </View>
-            <View style={tw`flex-row justify-between mb-1 mx-4`}>
+            <View style={tw`flex-row justify-between mb-2 mx-4`}>
                 <View style={tw`relative`}>
                     <Entypo onPress={() => handleVote("upvote")} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
                     <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(upvote.length).format('0a')}</Text>
