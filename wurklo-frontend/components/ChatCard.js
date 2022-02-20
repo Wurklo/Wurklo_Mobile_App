@@ -1,11 +1,14 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import tw from 'tailwind-react-native-classnames';
+import { useNavigation } from '@react-navigation/native';
 
 const ChatCard = ({ name, lastMessage, profilePic }) => {
+    const navigation = useNavigation();
+
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate()}
+            onPress={() => navigation.navigate('Chat', {})}
             style={tw`flex-row bg-white border-b border-gray-300 py-2`}
             activeOpacity={0.5}
         >

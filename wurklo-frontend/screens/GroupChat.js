@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import ChatCard from '../components/ChatCard'
 
-const profilePic = ['https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg','https://source.unsplash.com/random/200','https://source.unsplash.com/random/100','https://source.unsplash.com/random/300','https://source.unsplash.com/random/400'];
+const profilePic = ['https://www.forbes.com/wheels/wp-content/uploads/2020/12/Tesla-S-hero-1200px.jpg','https://cdn.geekwire.com/wp-content/uploads/2019/01/190110-starship5.jpg','https://www.searchenginewatch.com/wp-content/uploads/2018/10/big-rock-370x229.JPG','https://source.unsplash.com/random/300','https://source.unsplash.com/random/400'];
 const lastMessage = ['Last message This ia a long message that will test the slice mechanism and will cut ', 'Hey, there!', 'Can you do my roof?', 'What is your fee for that?']
 const name = ['Creating a spaceship', 'Building an Electric Car', 'Finding a rock']
 

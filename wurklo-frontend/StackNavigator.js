@@ -18,6 +18,7 @@ import LoginModal from './screens/LoginModal';
 import RegisterModal from './screens/RegisterModal';
 import { useSelector } from 'react-redux';
 import GroupChat from './screens/GroupChat';
+import Chat from './screens/Chat';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -50,7 +51,7 @@ const Messages = () => {
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarStyle: {
-                    marginTop: 30,
+                    marginTop: 33,
                 }
             }}
         >
@@ -160,6 +161,7 @@ const StackNavigator = () => {
                     <Stack.Group screenOptions={{ presentation: 'modal' }}>
                         <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
                         <Stack.Screen name="WurkerDetails" component={WurkerDetails} />
+                        <Stack.Screen name="Chat" component={Chat} />
                     </Stack.Group>
                 </>
             ) : (
