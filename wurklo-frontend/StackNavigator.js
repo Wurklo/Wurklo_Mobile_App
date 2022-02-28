@@ -85,15 +85,15 @@ const HomeWurk = () => {
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarStyle: {
-                    position: 'absolute',
-                    bottom: 15,
-                    left: 20,
-                    right: 20,
-                    elevation: 0,
+                    // position: 'absolute',
+                    // bottom: 15,
+                    // left: 20,
+                    // right: 20,
+                    // elevation: 0,
                     backgroundColor: '#ffffff',
-                    borderRadius: 25,
+                    // borderRadius: 25,
                     height: 60,
-                    paddingBottom: 3,
+                    paddingBottom: 10,
                     ...style.cardShadow
                 }
             }}
@@ -117,12 +117,13 @@ const HomeWurk = () => {
                     )
                 }}
             />
+             {/* style={[tw`absolute -top-4 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} */}
             <BottomTab.Screen
                 name="Post"
                 component={Post}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo style={[tw`absolute -top-2 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} name='camera' size={55} color={focused ? "orange" : "grey"} />
+                        <Entypo name='camera' size={45} color={focused ? "skyblue" : "grey"} />
                     )
                 }}
             />

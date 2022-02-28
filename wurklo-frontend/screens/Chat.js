@@ -54,7 +54,6 @@ const Chat = () => {
                 <Message />
                 <Message />
                 <Message />
-
             </ScrollView>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
