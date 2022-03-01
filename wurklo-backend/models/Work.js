@@ -7,7 +7,7 @@ const WorkSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add name'],
 
-        maxlength: [1000, 'name cannot be more than this.']
+        maxlength: [100, 'name cannot be more than this.']
     },
 
     slug: String,
@@ -20,7 +20,7 @@ const WorkSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add description'],
 
-        maxlength: [5000, 'Description cannot be more than this.'],
+        maxlength: [500, 'Description cannot be more than this.'],
     },
 
     upvote: {
