@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { Camera } from 'expo-camera';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Post = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -22,9 +23,9 @@ const Post = () => {
     return <Text>No access to camera</Text>;
   }
   return (
-    <View style={[tw``, styles.container]}>
-      <StatusBar hidden />
-      <Camera style={styles.camera} type={type}>
+    <SafeAreaView style={tw`flex-1`}>
+      <StatusBar style='auto' />
+      <Camera style={tw`h-1/2`} type={type} ratio={'1:1'}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -39,7 +40,29 @@ const Post = () => {
           </TouchableOpacity>
         </View>
       </Camera>
-    </View>
+      <View style={tw`h-1/2 justify-around items-center`}>
+        <TextInput
+          style={tw`bg-white border p-4 w-3/4`}
+          placeholder='Title'
+        />
+        <TextInput
+          style={tw`bg-white border p-4 w-3/4`}
+          placeholder='Description'
+        />
+        <View style={tw`flex-row justify-between`}>
+          <TouchableOpacity style={tw`px-2 bg-blue-500 rounded-full mr-8`}>
+            <Text style={tw`p-2 text-white font-semibold`}>Collab+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tw`px-2 bg-yellow-500 rounded-full ml-8`}>
+            <Text style={tw`p-2 text-white font-semibold`}>Solo</Text>
+          </TouchableOpacity>
+        </View>
+        <TextInput
+          style={tw`bg-white border p-4 w-3/4`}
+          placeholder='Price'
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

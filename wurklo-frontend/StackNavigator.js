@@ -7,7 +7,7 @@ import WurkerList from './screens/WurkerList';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import { Entypo, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import { Entypo, Ionicons, MaterialIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 import Search from './components/Search';
 import Post from './screens/Post';
 import PersonalChat from './screens/PersonalChat';
@@ -113,7 +113,7 @@ const HomeWurk = () => {
                 component={Search}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <FontAwesome style={tw`mr-4`} name='search' size={30} color={focused ? "skyblue" : "gray"} />
+                        <FontAwesome name='search' size={30} color={focused ? "skyblue" : "gray"} />
                     )
                 }}
             />
@@ -123,7 +123,7 @@ const HomeWurk = () => {
                 component={Post}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo name='camera' size={45} color={focused ? "skyblue" : "grey"} />
+                        <Octicons name='diff-added' size={35} color={focused ? "skyblue" : "grey"} />
                     )
                 }}
             />
@@ -132,7 +132,7 @@ const HomeWurk = () => {
                 component={Messages}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo style={tw`ml-4`} name='message' size={32} color={focused ? "skyblue" : "gray"} />
+                        <Entypo name='message' size={32} color={focused ? "skyblue" : "gray"} />
                     )
                 }}
             />
