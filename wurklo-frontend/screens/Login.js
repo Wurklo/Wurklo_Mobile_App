@@ -4,7 +4,7 @@ import tw from 'tailwind-react-native-classnames';
 import { StatusBar } from 'expo-status-bar';
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-
+//dello
 const Login = () => {
   const navigation = useNavigation();
 
