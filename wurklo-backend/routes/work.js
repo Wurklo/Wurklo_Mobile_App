@@ -1,14 +1,9 @@
-
+// import express from 'express';
 const express = require('express');
-const { getWork,
-    getWorks,
-    createWork,
-    updateWork,
-    deleteWork,
-    workPhotoUpload }
-    = require('../controllers/work')
-const router = express.Router();
 
+const { getWork, getWorks, createWork, updateWork, deleteWork, workPhotoUpload } = require('../controllers/work')
+
+const router = express.Router();
 
 router.route('/:id/photo').put(workPhotoUpload);
 router
@@ -21,4 +16,6 @@ router
     .get(getWork)
     .put(updateWork)
     .delete(deleteWork);
+
 module.exports = router;
+// export default router;
