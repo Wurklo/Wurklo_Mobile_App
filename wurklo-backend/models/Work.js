@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
+// import mongoose from 'mongoose';
 const moment = require('moment');
+// import moment from 'moment';
 
 const WorkSchema = new mongoose.Schema({
 
     title: {
         type: String,
-        required: [true, 'Plaease add name'],
+        required: [true, 'Please add name'],
 
-        maxlength: [1000, 'name cannot be more than this.']
+        maxlength: [100, 'name cannot be more than this.']
     },
 
     slug: String,
@@ -18,9 +20,9 @@ const WorkSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: [true, 'Plaease add description'],
+        required: [true, 'Please add description'],
 
-        maxlength: [5000, 'Description cannot be more than this.'],
+        maxlength: [500, 'Description cannot be more than this.'],
     },
 
     upvote: {

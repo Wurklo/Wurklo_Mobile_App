@@ -7,24 +7,24 @@ import WurkerList from './screens/WurkerList';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo, Ionicons, MaterialIcons, FontAwesome, Octicons } from '@expo/vector-icons';
 import Search from './components/Search';
 import Post from './screens/Post';
-import Messages from './screens/Messages';
+import PersonalChat from './screens/PersonalChat';
 import Profile from './screens/Profile';
 import tw from 'tailwind-react-native-classnames';
 import Login from './screens/Login';
 import LoginModal from './screens/LoginModal';
 import RegisterModal from './screens/RegisterModal';
 import { useSelector } from 'react-redux';
+import GroupChat from './screens/GroupChat';
+import Chat from './screens/Chat';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// home screen for wurkers and projects with swipe function
+// home screen for wurkers and projects with swipe function ** top nav **
 const Home = () => {
     return (
         <Tab.Navigator
@@ -42,6 +42,41 @@ const Home = () => {
     )
 }
 
+// top nav for messages
+const Messages = () => {
+    return (
+        <Tab.Navigator
+            initialRouteName='PersonalChat'
+            screenOptions={{
+                tabBarShowLabel: false,
+                headerShown: false,
+                tabBarStyle: {
+                    marginTop: 33,
+                }
+            }}
+        >
+            <Tab.Screen
+                name="Personal"
+                component={PersonalChat}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialIcons style={tw`-mr-7 -ml-3 -mt-3`} name='people' size={50} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
+            <Tab.Screen
+                name="Group"
+                component={GroupChat}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialIcons style={tw`-mr-7 -ml-3 -mt-3 `} name='groups' size={50} color={focused ? "skyblue" : "gray"} />
+                    )
+                }}
+            />
+        </Tab.Navigator>
+    )
+}
+
 // bottom nav bar component
 const HomeWurk = () => {
     return (
@@ -50,15 +85,15 @@ const HomeWurk = () => {
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarStyle: {
-                    position: 'absolute',
-                    bottom: 15,
-                    left: 20,
-                    right: 20,
-                    elevation: 0,
+                    // position: 'absolute',
+                    // bottom: 15,
+                    // left: 20,
+                    // right: 20,
+                    // elevation: 0,
                     backgroundColor: '#ffffff',
-                    borderRadius: 25,
+                    // borderRadius: 25,
                     height: 60,
-                    paddingBottom: 3,
+                    paddingBottom: 10,
                     ...style.cardShadow
                 }
             }}
@@ -78,16 +113,17 @@ const HomeWurk = () => {
                 component={Search}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <FontAwesome style={tw`mr-4`} name='search' size={30} color={focused ? "skyblue" : "gray"} />
+                        <FontAwesome name='search' size={30} color={focused ? "skyblue" : "gray"} />
                     )
                 }}
             />
+             {/* style={[tw`absolute -top-4 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} */}
             <BottomTab.Screen
                 name="Post"
                 component={Post}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo style={[tw`absolute -top-2 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} name='camera' size={55} color={focused ? "orange" : "gray"} />
+                        <Octicons name='diff-added' size={35} color={focused ? "skyblue" : "grey"} />
                     )
                 }}
             />
@@ -96,7 +132,7 @@ const HomeWurk = () => {
                 component={Messages}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Entypo style={tw`ml-4`} name='message' size={32} color={focused ? "skyblue" : "gray"} />
+                        <Entypo name='message' size={32} color={focused ? "skyblue" : "gray"} />
                     )
                 }}
             />
@@ -126,6 +162,7 @@ const StackNavigator = () => {
                     <Stack.Group screenOptions={{ presentation: 'modal' }}>
                         <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
                         <Stack.Screen name="WurkerDetails" component={WurkerDetails} />
+                        <Stack.Screen name="Chat" component={Chat} />
                     </Stack.Group>
                 </>
             ) : (
@@ -157,5 +194,5 @@ const style = StyleSheet.create({
         shadowRadius: 1.41,
 
         elevation: 10,
-    },
+    }
 });
