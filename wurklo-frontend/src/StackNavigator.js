@@ -19,6 +19,7 @@ import RegisterModal from './screens/RegisterModal';
 import { useSelector } from 'react-redux';
 import GroupChat from './screens/GroupChat';
 import Chat from './screens/Chat';
+import { AntDesign } from '@expo/vector-icons';
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -89,7 +90,7 @@ const HomeWurk = () => {
                     // bottom: 15,
                     // left: 20,
                     // right: 20,
-                    // elevation: 0,
+                    // elevation: 5,
                     backgroundColor: '#ffffff',
                     // borderRadius: 25,
                     height: 60,
@@ -113,7 +114,7 @@ const HomeWurk = () => {
                 component={Search}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <FontAwesome name='search' size={30} color={focused ? "skyblue" : "gray"} />
+                        <AntDesign name='areachart' size={30} color={focused ? "skyblue" : "gray"} />
                     )
                 }}
             />
