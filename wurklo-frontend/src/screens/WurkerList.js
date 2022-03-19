@@ -1,17 +1,23 @@
 import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import WurkerPost from '../components/WurkerPost';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialIcons } from '@expo/vector-icons';
+import tw from 'tailwind-react-native-classnames';
 
 //redux
-import { useSelector } from 'react-redux';
-import tw from 'tailwind-react-native-classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWurkers } from '../redux/slices/wurkers'
 
 const WurkerList = () => {
     //redux
-    const { wurkers } = useSelector((state) => state.wurkers)
+    const { wurkers } = useSelector((state) => state.wurkers);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getWurkers());
+    }, []);
 
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>
@@ -31,7 +37,7 @@ const WurkerList = () => {
             <FlatList
                 contentContainerStyle={tw`pb-32`}
                 data={wurkers}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item._id}
                 renderItem={({ item: wurker }) =>
                     <WurkerPost
                         id={wurker.id}

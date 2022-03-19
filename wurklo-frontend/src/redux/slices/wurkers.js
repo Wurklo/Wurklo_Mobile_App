@@ -87,15 +87,3 @@ export const wurkersSlice = createSlice({
 export const { setUpvote, setDownvote } = wurkersSlice.actions;
 
 export default wurkersSlice.reducer;
-
-
-    // get projects and store them in projects useState axios method may change to thunk for redux
-    // useEffect(() => {
-    //     axios.get('/api/v1/works').then((response) => {
-    //         if (response.data.data.length > 0) {
-    //             setProjects(response.data);
-    //         } else {
-    //             console.log(response.data)
-    //         }
-    //     });
-    // }, [])

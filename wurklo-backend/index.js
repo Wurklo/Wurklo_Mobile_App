@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 
 //mount routers
 app.use('/api/v1/works', works);
-app.use('/api/v1/wurker', wurkerRoutes);
+app.use('/api/v1/wurkers', wurkerRoutes);
 
 app.use(errorHandler);
 const server = app.listen(PORT, console.log("Server is running in port: ".yellow.bold, PORT));
