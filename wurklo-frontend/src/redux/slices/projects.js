@@ -147,6 +147,6 @@ export const projectsSlice = createSlice({
 })
 
 //action creators are generated for each case reducer function
-export const { setUpvote, setDownvote, setSubractVote } = projectsSlice.actions;
+export const { setUpvote, setDownvote } = projectsSlice.actions;
 
 export default projectsSlice.reducer;

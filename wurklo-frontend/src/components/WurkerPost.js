@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/core';
 import numeral from 'numeral'; 
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { setUpvote, setDownvote } from '../redux/slices/wurkers';
+import { upvoteWurker, downvoteWurker, setUpvote, setDownvote } from '../redux/slices/wurkers';
 
 const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvote, downvote }) => {
     const navigation = useNavigation();
@@ -18,12 +18,14 @@ const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvo
     const userId = 110;
     const handleVote = (voteType) => {
         if (voteType === "upvote") {
+            dispatch(upvoteWurker({ userId, downvote, upvote, id }));
             dispatch(setUpvote({downvote, upvote, userId, id}))
         } else if (voteType === "downvote") {
+            dispatch(downvoteWurker({ userId, downvote, upvote, id }))
             dispatch(setDownvote({downvote, upvote, userId, id}))
         }
     }
-    
+
     rating = rating.reduce((x, y) => (x + y), 0)/rating.length
 
     return (

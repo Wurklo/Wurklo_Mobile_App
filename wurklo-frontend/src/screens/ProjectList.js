@@ -3,7 +3,7 @@ import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import ProjectPost from '../components/ProjectPost';
 import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,15 +23,19 @@ const HomeScreen = () => {
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
             <View style={tw`flex-row justify-between items-center bg-white border-2 border-gray-200`}>
-                <TextInput
-                    style={tw`p-4 w-5/6`}
-                    placeholder='Search projects... ex. electric cars'
-                />
                 <TouchableOpacity
                     style={tw`rounded-full`}
                 >
-                    {/* <Text style={tw`p-5 bg-gray-500 text-white`}>Send</Text> */}
-                    <MaterialIcons style={tw`p-2 bg-white text-gray-500`} name="search" size={30} color="black" />
+                    <MaterialIcons style={tw`p-2 text-gray-500`} name="search" size={30} color="black" />
+                </TouchableOpacity>
+                <TextInput
+                    style={tw`py-4 w-3/4`}
+                    placeholder='Search projects... ex. electric cars'
+                />
+                <TouchableOpacity
+                    style={tw`rounded-full -ml-4`}
+                >
+                    <MaterialCommunityIcons style={tw`p-2 text-gray-500`} name="sort" size={30} color="black" />
                 </TouchableOpacity>
             </View>
             <FlatList

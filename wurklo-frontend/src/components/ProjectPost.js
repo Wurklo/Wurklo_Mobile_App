@@ -8,6 +8,7 @@ import numeral from 'numeral';
 import { useDispatch } from 'react-redux';
 import { upvoteProject, downvoteProject, setUpvote, setDownvote } from '../redux/slices/projects';
 
+// remove profile pic when user is added
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
 const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate, collab, created }) => {

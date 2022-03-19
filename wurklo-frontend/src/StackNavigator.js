@@ -83,8 +83,8 @@ const HomeWurk = () => {
     return (
         <BottomTab.Navigator
             screenOptions={{
-                tabBarShowLabel: false,
-                headerShown: false,
+                tabBarShowLabel: true,
+                headerShown: false,                
                 tabBarStyle: {
                     // position: 'absolute',
                     // bottom: 15,
@@ -93,26 +93,27 @@ const HomeWurk = () => {
                     // elevation: 5,
                     backgroundColor: '#ffffff',
                     // borderRadius: 25,
-                    height: 60,
-                    paddingBottom: 10,
+                    height: 65,
+                    paddingBottom: 15,
                     ...style.cardShadow
                 }
             }}
-
         >
             <BottomTab.Screen
                 name="Home"
                 component={Home}
                 options={{
+                    tabBarActiveTintColor: "skyblue",
                     tabBarIcon: ({ focused }) => (
                         <Entypo name='home' size={30} color={focused ? "skyblue" : "gray"} />
                     )
                 }}
             />
             <BottomTab.Screen
-                name="Search"
+                name="Analytics"
                 component={Search}
                 options={{
+                    tabBarActiveTintColor: "skyblue",
                     tabBarIcon: ({ focused }) => (
                         <AntDesign name='areachart' size={30} color={focused ? "skyblue" : "gray"} />
                     )
@@ -123,6 +124,7 @@ const HomeWurk = () => {
                 name="Post"
                 component={Post}
                 options={{
+                    tabBarActiveTintColor: "skyblue",
                     tabBarIcon: ({ focused }) => (
                         <Octicons name='diff-added' size={35} color={focused ? "skyblue" : "grey"} />
                     )
@@ -132,6 +134,7 @@ const HomeWurk = () => {
                 name="Messages"
                 component={Messages}
                 options={{
+                    tabBarActiveTintColor: "skyblue",
                     tabBarIcon: ({ focused }) => (
                         <Entypo name='message' size={32} color={focused ? "skyblue" : "gray"} />
                     )
@@ -141,6 +144,7 @@ const HomeWurk = () => {
                 name="Profile"
                 component={Profile}
                 options={{
+                    tabBarActiveTintColor: "skyblue",
                     tabBarIcon: ({ focused }) => (
                         <Ionicons name='person' size={30} color={focused ? "skyblue" : "gray"} />
                     )

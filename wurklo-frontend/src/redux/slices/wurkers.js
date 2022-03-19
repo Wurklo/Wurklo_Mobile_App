@@ -20,9 +20,67 @@ export const getWurkers = createAsyncThunk(
 
 // update a wurker
 
-// upvote a wurker
+// upvote a project
+export const upvoteWurker = createAsyncThunk(
+    "wurkers/upvoteWurker",
+    async ({ downvote, upvote, userId, id }) => {
+        if (upvote.indexOf(userId) !== -1) {
+            try {
+                const response = await axios.put(`/wurkers/${id}`, { upvote: upvote.filter(id => id !== userId) })
+                return response.data
+            } catch (err) {
+                console.log("Wurker upvote removal failed: ", err)
+            }
+        } else {
+            if (downvote.indexOf(userId) !== -1) {
+                try {
+                    const response = await axios.put(`/wurkers/${id}`, { upvote: [...upvote, userId], downvote: downvote.filter(id => id !== userId) })
+                    return response.data
+                } catch (err) {
+                    console.log("Wurker upvote failed: ", err)
+                }
+            } else {
+                try {
+                    const response = await axios.put(`/wurkers/${id}`, { upvote: [...upvote, userId] })
+                    return response.data
+                } catch (err) {
+                    console.log("Wurker upvote failed: ", err)
+                }
+            }
+        }
+    }
+)
 
-// downvote a wurker
+// downvote a project
+export const downvoteWurker = createAsyncThunk(
+    "wurkers/downvoteWurker",
+    async ({ downvote, upvote, userId, id }) => {
+        if (downvote.indexOf(userId) !== -1) {
+            try {
+                const response = await axios.put(`/wurkers/${id}`, { downvote: downvote.filter(id => id !== userId) })
+                return response.data
+            } catch (err) {
+                console.log("Wurker subtract downvote failed: ", err)
+            }
+        } else {
+            if (upvote.indexOf(userId) !== -1) {
+                try {
+                    const response = await axios.put(`/wurkers/${id}`, { downvote: [...downvote, userId], upvote: upvote.filter(id => id !== userId) })
+                    return response.data
+                } catch (err) {
+                    console.log("Wurker downvote failed: ", err)
+                }
+            } else {
+                try {
+                    const response = await axios.put(`/wurkers/${id}`, { downvote: [...downvote, userId] })
+                    return response.data
+                } catch (err) {
+                    console.log("Wurker downvote failed: ", err)
+                }
+            }
+        }
+    }
+)
 
 
 // find by id or obj variable array
@@ -79,6 +137,16 @@ export const wurkersSlice = createSlice({
             })
             .addCase(getWurkers, (state, action) => {
                 state.status = "failed";
+            })
+            .addCase(upvoteWurker.fulfilled, (state, { payload }) => {
+                const index = state.wurkers.findIndex((wurker) => wurker._id === payload.data._id);
+                state.wurkers[index].upvote = payload.data.upvote
+                state.wurkers[index].downvote = payload.data.downvote
+            })
+            .addCase(downvoteWurker.fulfilled, (state, { payload }) => {
+                const index = state.wurkers.findIndex((wurker) => wurker._id === payload.data._id);
+                state.wurkers[index].downvote = payload.data.downvote
+                state.wurkers[index].upvote = payload.data.upvote
             })
     }
 })
