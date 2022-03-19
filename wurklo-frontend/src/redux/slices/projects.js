@@ -14,13 +14,21 @@ export const getProjects = createAsyncThunk(
     }
 )
 
+// create a project
+// fancy funtion here ......
+
+
+// update a project
+// fancy funtion here ......
+
+
 // upvote a project
 export const upvoteProject = createAsyncThunk(
     "projects/upvoteProject",
-    async ({downvote, upvote, userId, id}) => {
+    async ({ downvote, upvote, userId, id }) => {
         if (upvote.indexOf(userId) !== -1) {
             try {
-                const response = await axios.put(`/works/${id}`, {upvote: upvote.filter(id => id !== userId)})
+                const response = await axios.put(`/works/${id}`, { upvote: upvote.filter(id => id !== userId) })
                 return response.data
             } catch (err) {
                 console.log("Project upvote removal failed: ", err)
@@ -28,14 +36,14 @@ export const upvoteProject = createAsyncThunk(
         } else {
             if (downvote.indexOf(userId) !== -1) {
                 try {
-                    const response = await axios.put(`/works/${id}`, {upvote: [...upvote, userId], downvote: downvote.filter(id => id !== userId)})
+                    const response = await axios.put(`/works/${id}`, { upvote: [...upvote, userId], downvote: downvote.filter(id => id !== userId) })
                     return response.data
                 } catch (err) {
                     console.log("Project upvote failed: ", err)
                 }
             } else {
                 try {
-                    const response = await axios.put(`/works/${id}`, {upvote: [...upvote, userId]})
+                    const response = await axios.put(`/works/${id}`, { upvote: [...upvote, userId] })
                     return response.data
                 } catch (err) {
                     console.log("Project upvote failed: ", err)
@@ -48,10 +56,10 @@ export const upvoteProject = createAsyncThunk(
 // downvote a project
 export const downvoteProject = createAsyncThunk(
     "projects/downvoteProject",
-    async ({downvote, upvote, userId, id}) => {
+    async ({ downvote, upvote, userId, id }) => {
         if (downvote.indexOf(userId) !== -1) {
             try {
-                const response = await axios.put(`/works/${id}`, {downvote: downvote.filter(id => id !== userId)})
+                const response = await axios.put(`/works/${id}`, { downvote: downvote.filter(id => id !== userId) })
                 return response.data
             } catch (err) {
                 console.log("Project subtract downvote failed: ", err)
@@ -59,14 +67,14 @@ export const downvoteProject = createAsyncThunk(
         } else {
             if (upvote.indexOf(userId) !== -1) {
                 try {
-                    const response = await axios.put(`/works/${id}`, {downvote: [...downvote, userId], upvote: upvote.filter(id => id !== userId)})
+                    const response = await axios.put(`/works/${id}`, { downvote: [...downvote, userId], upvote: upvote.filter(id => id !== userId) })
                     return response.data
                 } catch (err) {
                     console.log("Project downvote failed: ", err)
                 }
             } else {
                 try {
-                    const response = await axios.put(`/works/${id}`, {downvote: [...downvote, userId]})
+                    const response = await axios.put(`/works/${id}`, { downvote: [...downvote, userId] })
                     return response.data
                 } catch (err) {
                     console.log("Project downvote failed: ", err)
