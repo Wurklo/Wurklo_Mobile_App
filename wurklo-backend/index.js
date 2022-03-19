@@ -1,21 +1,13 @@
-const express = require('express');
-// import express from 'express';
-const dotenv = require('dotenv');
-// import dotenv from 'dotenv';
-const morgan = require('morgan');
-// import morgan from 'morgan';
-const colors = require('colors');
-// import colors from 'colors';
-const errorHandler = require('./middleware/error')
-// import errorHandler from './middleware/error';
-const connectDB = require('./config/db');
-// import connectDB from './config/db';
-const cors = require('cors')
-// import cors from 'cors';
+import express from 'express';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import colors from 'colors';
+import errorHandler from './middleware/error.js';
+import connectDB from './config/db.js';
+import cors from 'cors';
 
 // route files
-const works = require('./routes/work');
-// import works from './routes/work';
+import works from './routes/work.js';
 
 //load env vars
 dotenv.config({ path: './config/config.env' });

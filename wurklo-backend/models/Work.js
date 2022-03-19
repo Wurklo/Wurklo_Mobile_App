@@ -1,9 +1,7 @@
-const mongoose = require('mongoose');
-// import mongoose from 'mongoose';
-const moment = require('moment');
-// import moment from 'moment';
+import mongoose from 'mongoose';
+import moment from 'moment';
 
-const WorkSchema = new mongoose.Schema({
+const workSchema = new mongoose.Schema({
 
     title: {
         type: String,
@@ -43,4 +41,5 @@ const WorkSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Work', WorkSchema);
+const Work = mongoose.model('Work', workSchema);
+export default Work;

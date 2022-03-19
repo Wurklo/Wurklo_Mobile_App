@@ -1,10 +1,9 @@
-const Work = require('../models/Work');
-// import Work from '../models/Work';
+import Work from '../models/Work.js';
 
 // @desc get all the works
 // @route GET /api/v1/works
 // @access Public
-exports.getWorks = async (req, res, next) => {
+export const getWorks = async (req, res, next) => {
 
     try {
         const works = await Work.find();
@@ -20,7 +19,7 @@ exports.getWorks = async (req, res, next) => {
 // @desc get single the work
 // @route GET /api/v1/works/:id
 // @access Public
-exports.getWork = async (req, res, next) => {
+export const getWork = async (req, res, next) => {
 
     try {
         const work = await Work.findById(req.params.id);
@@ -41,7 +40,7 @@ exports.getWork = async (req, res, next) => {
 // @desc create new work
 // @route POST /api/v1/works
 // @access Private
-exports.createWork = async (req, res, next) => {
+export const createWork = async (req, res, next) => {
     /// the create error risising
 
 
@@ -56,7 +55,7 @@ exports.createWork = async (req, res, next) => {
 // @desc update work
 // @route PUT /api/v1/works/:id
 // @access Private
-exports.updateWork = async (req, res, next) => {
+export const updateWork = async (req, res, next) => {
     const work = await Work.findByIdAndUpdate(req.params.id, req.body, {
 
         new: true,
@@ -72,7 +71,7 @@ exports.updateWork = async (req, res, next) => {
 // @desc delete work
 // @route DELETE /api/v1/works/:id
 // @access Private
-exports.deleteWork = async (req, res, next) => {
+export const deleteWork = async (req, res, next) => {
     try {
         const work = await Work.findByIdAndDelete(req.params.id);
         if (!work) {
@@ -89,7 +88,7 @@ exports.deleteWork = async (req, res, next) => {
 // @desc upload photo bootcamp
 // @route PUT /api/v1/works/:id/photo
 // @access Private
-exports.workPhotoUpload = async (req, res, next) => {
+export const workPhotoUpload = async (req, res, next) => {
     try {
         const work = await Work.findByIdAndDelete(req.params.id);
         if (!work) {

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 // slices or reducers
@@ -13,5 +13,5 @@ export const store = configureStore({
         wurkers: wurkers,
         user: user,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([thunk, logger]),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([thunk]),
 });

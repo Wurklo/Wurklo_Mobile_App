@@ -1,7 +1,5 @@
-// import express from 'express';
-const express = require('express');
-
-const { getWork, getWorks, createWork, updateWork, deleteWork, workPhotoUpload } = require('../controllers/work')
+import express from 'express';
+import { getWork, getWorks, createWork, updateWork, deleteWork, workPhotoUpload } from '../controllers/work.js'
 
 const router = express.Router();
 
@@ -17,5 +15,4 @@ router
     .put(updateWork)
     .delete(deleteWork);
 
-module.exports = router;
-// export default router;
+export default router;
