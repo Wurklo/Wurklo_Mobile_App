@@ -10,12 +10,13 @@ const workSchema = new mongoose.Schema({
         maxlength: [100, 'name cannot be more than this.']
     },
 
-    slug: String,
+    // slug: String,
 
     image: {
         type: String,
         default: 'no-photo.jpg'
     },
+
     description: {
         type: String,
         required: [true, 'Please add description'],
@@ -26,13 +27,18 @@ const workSchema = new mongoose.Schema({
     upvote: {
         type: Array,
     },
+
     downvote: {
         type: Array,
     },
 
     pay_rate: Number,
+
     collab: {
         type: Boolean,
+    },
+    skill: {
+        type: String,
     },
     created: {
         type: Number,

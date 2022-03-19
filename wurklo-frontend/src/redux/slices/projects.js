@@ -16,7 +16,17 @@ export const getProjects = createAsyncThunk(
 
 // create a project
 // fancy funtion here ......
-
+export const createProject = createAsyncThunk(
+    "projects/createProject",
+    async (postData) => {
+        try {
+            const response = await axios.post('/works', postData)
+            return response.data.data;
+        } catch (err) {
+            console.log("Create projects failed: ", err)
+        }
+    }
+)
 
 // update a project
 // fancy funtion here ......
@@ -142,6 +152,10 @@ export const projectsSlice = createSlice({
                 const index = state.projects.findIndex((project) => project._id === payload.data._id);
                 state.projects[index].downvote = payload.data.downvote
                 state.projects[index].upvote = payload.data.upvote
+            })
+            .addCase(createProject.fulfilled, (state, { payload }) => {
+                // console.log("state", state, "payload", payload)
+                state.projects = [...state.projects, payload]
             })
     }
 })

@@ -6,27 +6,41 @@ import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { createProject } from '../redux/slices/projects';
 
 const Post = () => {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const navigation = useNavigation();
 
-  // make these redux values
+  //redux
+  const dispatch = useDispatch();
+
+  // make these redux values and could make all in one line using object
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [pay_rate, setPayRate] = useState(null);
+  const [skill, setSkill] = useState(null);
 
+  // write a function that will set collab to true 
+  // anytime a project has more than one skill requested
   const [isCollab, setIsCollab] = useState(false);
-
 
   const takePicture = async () => {
     if (camera) {
       const data = await camera.takePictureAsync(null);
       setImage(data.uri);
-      console.log(data);
-    }  
+    }
   }
 
   const pickImage = async () => {
+    await ImagePicker.getMediaLibraryPermissionsAsync();
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -35,26 +49,45 @@ const Post = () => {
       quality: 1,
     });
 
-    console.log(result);
 
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
+  const handleUpload = () => {
+    const postData = { image, title, description, pay_rate, skill };
+    // this can be changed later to something better
+    if (image && title && description && pay_rate && skill) {
+      dispatch(createProject(postData));
+
+      setImage(null);
+      setTitle(null);
+      setDescription(null);
+      setPayRate(null);
+      setSkill(null);
+      navigation.navigate("Home");
+      return;
+    }
+    alert("Complete form first")
+    return;
+  }
+
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasCameraPermission(status === 'granted');
     })();
   }, []);
 
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+  if (hasCameraPermission === false || hasCameraPermission === null) {
+    return (
+      <View style={tw`flex-1 justify-center items-center`}>
+        <Text>No access to camera</Text>
+        <Text>Go to settings to give app camera permission</Text>
+      </View>
+    );
   }
 
   return (
@@ -113,23 +146,38 @@ const Post = () => {
             style={[tw`bg-white p-4 mb-1 w-full`, styles.cardShadow]}
             placeholder='Title... ex. Building an electric car'
             maxLength={100}
+            multiline={true}
+
+            onChangeText={setTitle}
+            value={title}
           />
           <TextInput
             style={[tw`bg-white p-4 mb-1 w-full h-20`, styles.cardShadow]}
             placeholder='Description... ex. This project is...'
             maxLength={500}
+            multiline={true}
+            onChangeText={setDescription}
+            value={description}
           />
           <TextInput
             style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
-            placeholder='Price ex. 50'
+            placeholder='Price... ex. 50'
+            maxLength={30}
+            keyboardType='numeric'
+            onChangeText={setPayRate}
+            value={pay_rate}
           />
           <TextInput
             style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
-            placeholder='Wurker skill ex. programmer'
+            placeholder='Wurker skill... ex. programmer'
+            maxLength={30}
+            onChangeText={setSkill}
+            value={skill}
           />
           <View style={tw`items-center`}>
             <TouchableOpacity
               style={[tw`w-20 bg-red-600 rounded-3xl my-1`, styles.cardShadow]}
+              onPress={handleUpload}
             >
               <Text style={[tw`px-4 py-3 text-white font-semibold text-center`]}>Post</Text>
             </TouchableOpacity>

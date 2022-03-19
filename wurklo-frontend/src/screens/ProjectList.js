@@ -4,11 +4,12 @@ import ProjectPost from '../components/ProjectPost';
 import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import tw from 'tailwind-react-native-classnames';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjects } from '../redux/slices/projects';
-import tw from 'tailwind-react-native-classnames';
+
 
 const HomeScreen = () => {
     //redux
