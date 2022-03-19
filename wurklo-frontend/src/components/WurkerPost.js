@@ -23,6 +23,8 @@ const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvo
             dispatch(setDownvote({downvote, upvote, userId, id}))
         }
     }
+    
+    rating = rating.reduce((x, y) => (x + y), 0)/rating.length
 
     return (
         <View style={[

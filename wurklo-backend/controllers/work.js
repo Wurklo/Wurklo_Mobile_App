@@ -34,7 +34,6 @@ export const getWork = async (req, res, next) => {
         next(err);
     }
     res.status(200).json({ success: true, msg: `get ${req.params.id} work` });
-
 };
 
 // @desc create new work

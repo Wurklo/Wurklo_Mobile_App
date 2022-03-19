@@ -4,7 +4,6 @@ import Wurker from '../models/wurker.js';
 // @route GET /api/v1/wurkers
 // @access Public
 export const getWurkers = async (req, res, next) => {
-    console.log("hi")
     try {
         const wurkers = await Wurker.find();
         res.status(200).json({ success: true, count: wurkers.length, data: wurkers });
@@ -14,6 +13,24 @@ export const getWurkers = async (req, res, next) => {
 
     }
 
+};
+
+// @desc get single the wurker
+// @route GET /api/v1/wurkers/:id
+// @access Public
+export const getWurker = async (req, res, next) => {
+
+    try {
+        const wurker = await Wurker.findById(req.params.id);
+
+        if (!wurker) {
+            return res.status(400).json({ success: false })
+        }
+
+        res.status(200).json({ success: true, data: wurker })
+    } catch (error) {
+        res.status(400).json({ success: false });
+    }
 };
 
 // @desc create new wurker
@@ -27,4 +44,20 @@ export const createWurker = async (req, res, next) => {
         data: wurker
     });
 
+};
+
+// @desc update wurker
+// @route PUT /api/v1/wurkers/:id
+// @access Private
+export const updateWurker = async (req, res, next) => {
+    const wurker = await Wurker.findByIdAndUpdate(req.params.id, req.body, {
+
+        new: true,
+        runValidators: true
+    });
+
+    if (!wurker) {
+        return res.status(400).json({ success: false })
+    }
+    res.status(200).json({ success: true, data: wurker });
 };
