@@ -8,7 +8,7 @@ import moment from 'moment';
 import { useState } from 'react';
 import numeral from 'numeral';
 import { useDispatch, useSelector } from 'react-redux';
-import { upvoteProject, downvoteProject } from '../redux/slices/projects';
+import { upvoteProject, downvoteProject, setUpvote, setDownvote } from '../redux/slices/projects';
 
 
 const ProjectDetails = () => {
@@ -27,10 +27,10 @@ const ProjectDetails = () => {
     const handleVote = (voteType) => {
         if (voteType === "upvote") {
             dispatch(upvoteProject({ userId, downvote, upvote, id }));
+            dispatch(setUpvote({ downvote, upvote, userId, id }));
         } else if (voteType === "downvote") {
             dispatch(downvoteProject({ userId, downvote, upvote, id }));
-        } else {
-            console.log("You entered a bad vote");
+            dispatch(setDownvote({ downvote, upvote, userId, id }));
         }
     }
 

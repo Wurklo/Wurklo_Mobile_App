@@ -40,7 +40,7 @@ const WurkerList = () => {
                 keyExtractor={(item) => item._id}
                 renderItem={({ item: wurker }) =>
                     <WurkerPost
-                        id={wurker.id}
+                        id={wurker._id}
                         image={wurker.image}
                         name={wurker.name}
                         skill={wurker.skill}

@@ -39,7 +39,7 @@ export const wurkersSlice = createSlice({
     },
     reducers: {
         setDownvote: (state, { payload: { id, upvote, downvote, userId } }) => {
-            const wurkerIndex = state.wurkers.findIndex((wurkers) => wurkers.id === id);
+            const wurkerIndex = state.wurkers.findIndex((wurkers) => wurkers._id === id);
             const voteIndex = downvote.indexOf(userId);
             if (voteIndex !== -1) {
                 state.wurkers[wurkerIndex].downvote = downvote.filter(id => id !== userId);
@@ -53,7 +53,7 @@ export const wurkersSlice = createSlice({
             }
         },
         setUpvote: (state, { payload: { id, upvote, downvote, userId } }) => {
-            const wurkerIndex = state.wurkers.findIndex((wurkers) => wurkers.id === id);
+            const wurkerIndex = state.wurkers.findIndex((wurkers) => wurkers._id === id);
             const voteIndex = upvote.indexOf(userId);
             if (voteIndex !== -1) {
                 state.wurkers[wurkerIndex].upvote = upvote.filter(id => id !== userId);

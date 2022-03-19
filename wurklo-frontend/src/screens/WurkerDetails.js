@@ -17,7 +17,7 @@ const WurkerDetails = () => {
 
     // workaround for params not updating when redux state dipatches handlevote
     const { wurkers } = useSelector((state) => state.wurkers);
-    const index = wurkers.findIndex((obj) => obj.id === id);
+    const index = wurkers.findIndex((obj) => obj._id === id);
     const { image, name, skill, rating, description, pay_rate, upvote, downvote } = wurkers[index];
 
     const userId = 110;// temporary userId until connecting userprofile

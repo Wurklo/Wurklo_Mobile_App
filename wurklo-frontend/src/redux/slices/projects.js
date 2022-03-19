@@ -92,7 +92,34 @@ export const projectsSlice = createSlice({
         status: null,
     },
     reducers: {
-        // add local state reducers here
+        setDownvote: (state, { payload: { id, upvote, downvote, userId } }) => {
+            const projectIndex = state.projects.findIndex((projects) => projects._id === id);
+            const voteIndex = downvote.indexOf(userId);
+            if (voteIndex !== -1) {
+                state.projects[projectIndex].downvote = downvote.filter(id => id !== userId);
+            } else {
+                if (upvote.indexOf(userId !== -1)) {
+                    state.projects[projectIndex].downvote = [...downvote, userId];
+                    state.projects[projectIndex].upvote = upvote.filter(id => id !== userId);
+                } else {
+                    state.projects[projectIndex].downvote = [...downvote, userId];
+                }
+            }
+        },
+        setUpvote: (state, { payload: { id, upvote, downvote, userId } }) => {
+            const projectIndex = state.projects.findIndex((projects) => projects._id === id);
+            const voteIndex = upvote.indexOf(userId);
+            if (voteIndex !== -1) {
+                state.projects[projectIndex].upvote = upvote.filter(id => id !== userId);
+            } else {
+                if (upvote.indexOf(userId !== -1)) {
+                    state.projects[projectIndex].upvote = [...upvote, userId];
+                    state.projects[projectIndex].downvote = downvote.filter(id => id !== userId);
+                } else {
+                    state.projects[projectIndex].upvote = [...upvote, userId];
+                }
+            }
+        },
     },
     extraReducers: builder => {
         builder
