@@ -9,6 +9,7 @@ import cors from 'cors';
 // route files
 import works from './routes/work.js';
 import wurkerRoutes from './routes/wurker.js';
+import s3Routes from './routes/s3.js';
 
 //load env vars
 dotenv.config({ path: './config/config.env' });
@@ -30,6 +31,8 @@ if (process.env.NODE_ENV === 'development') {
 //mount routers
 app.use('/api/v1/works', works);
 app.use('/api/v1/wurkers', wurkerRoutes);
+app.use('/api/v1/s3', s3Routes);
+
 
 app.use(errorHandler);
 const server = app.listen(PORT, console.log("Server is running in port: ".yellow.bold, PORT));

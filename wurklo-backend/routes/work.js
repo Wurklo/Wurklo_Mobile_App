@@ -1,9 +1,8 @@
 import express from 'express';
-import { getWork, getWorks, createWork, updateWork, deleteWork, workPhotoUpload } from '../controllers/work.js'
+import { getWork, getWorks, createWork, updateWork, deleteWork } from '../controllers/work.js'
 
 const router = express.Router();
 
-router.route('/:id/photo').put(workPhotoUpload);
 router
     .route('/')
     .get(getWorks)
