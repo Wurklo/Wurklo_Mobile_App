@@ -11,6 +11,7 @@
   "author": "Manoj Haki & Bobby Keel",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1096.0",
     "colors": "^1.4.0",
     "config": "^3.3.7",
     "cors": "^2.8.5",

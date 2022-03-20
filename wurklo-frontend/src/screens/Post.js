@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/core';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +17,7 @@ const Post = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const navigation = useNavigation();
-
+  const isFocused = useIsFocused();
   //redux
   const dispatch = useDispatch();
 
@@ -88,106 +89,108 @@ const Post = () => {
         <Text>Go to settings to give app camera permission</Text>
       </View>
     );
-  }
+  } else if (hasCameraPermission !== null && isFocused) {
 
-  return (
-    <SafeAreaView style={tw`flex-1`} edges={["left", "right", "top"]}>
-      <StatusBar style='auto' />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <ScrollView style={tw`flex`}>
-          {image ? image &&
-            <View style={tw`relative h-96`}>
-              <Image source={{ uri: image }} style={tw`h-full`} />
-              <TouchableOpacity
-                onPress={() => setImage(null)}
-                style={tw`absolute bottom-3 left-4`}
-              >
-                <MaterialCommunityIcons name="camera-retake-outline" size={34} color="#FAF9F6" />
-              </TouchableOpacity>
-            </View>
-            :
-            <Camera
-              ref={ref => setCamera(ref)}
-              style={tw`h-96`}
-              type={type}
-              ratio={'1:1'}
-            >
-              <View style={[tw`justify-center`, styles.buttonContainer]}>
+    return (
+      <SafeAreaView style={tw`flex-1`} edges={["left", "right", "top"]}>
+        <StatusBar style='auto' />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <ScrollView style={tw`flex`}>
+            {image ? image &&
+              <View style={tw`relative h-96`}>
+                <Image source={{ uri: image }} style={tw`h-full`} />
                 <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    setType(
-                      type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back
-                    );
-                  }}>
-                  <MaterialCommunityIcons style={tw`mb-2`} name="rotate-3d-variant" size={38} color="#FAF9F6" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[tw``, styles.button]}
-                  onPress={() => takePicture()}
+                  onPress={() => setImage(null)}
+                  style={tw`absolute bottom-3 left-4`}
                 >
-                  <MaterialCommunityIcons style={tw`mb-2`} name="camera-iris" size={38} color="#FAF9F6" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[tw``, styles.button]}
-                  onPress={() => pickImage()}
-                >
-                  <MaterialCommunityIcons style={tw`mb-2`} name="folder-upload-outline" size={38} color="#FAF9F6" />
+                  <MaterialCommunityIcons name="camera-retake-outline" size={34} color="#FAF9F6" />
                 </TouchableOpacity>
               </View>
-            </Camera>
-          }
+              :
+              <Camera
+                ref={ref => setCamera(ref)}
+                style={tw`h-96`}
+                type={type}
+                ratio={'1:1'}
+              >
+                <View style={[tw`justify-center`, styles.buttonContainer]}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      setType(
+                        type === Camera.Constants.Type.back
+                          ? Camera.Constants.Type.front
+                          : Camera.Constants.Type.back
+                      );
+                    }}>
+                    <MaterialCommunityIcons style={tw`mb-2`} name="rotate-3d-variant" size={38} color="#FAF9F6" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[tw``, styles.button]}
+                    onPress={() => takePicture()}
+                  >
+                    <MaterialCommunityIcons style={tw`mb-2`} name="camera-iris" size={38} color="#FAF9F6" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[tw``, styles.button]}
+                    onPress={() => pickImage()}
+                  >
+                    <MaterialCommunityIcons style={tw`mb-2`} name="folder-upload-outline" size={38} color="#FAF9F6" />
+                  </TouchableOpacity>
+                </View>
+              </Camera>
+            }
 
-          <TextInput
-            style={[tw`bg-white p-4 mb-1 w-full`, styles.cardShadow]}
-            placeholder='Title... ex. Building an electric car'
-            maxLength={100}
-            multiline={true}
+            <TextInput
+              style={[tw`bg-white p-4 mb-1 w-full`, styles.cardShadow]}
+              placeholder='Title... ex. Building an electric car'
+              maxLength={100}
+              multiline={true}
 
-            onChangeText={setTitle}
-            value={title}
-          />
-          <TextInput
-            style={[tw`bg-white p-4 mb-1 w-full h-20`, styles.cardShadow]}
-            placeholder='Description... ex. This project is...'
-            maxLength={500}
-            multiline={true}
-            onChangeText={setDescription}
-            value={description}
-          />
-          <TextInput
-            style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
-            placeholder='Price... ex. 50'
-            maxLength={30}
-            keyboardType='numeric'
-            onChangeText={setPayRate}
-            value={pay_rate}
-          />
-          <TextInput
-            style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
-            placeholder='Wurker skill... ex. programmer'
-            maxLength={30}
-            onChangeText={setSkill}
-            value={skill}
-          />
-          <View style={tw`items-center`}>
-            <TouchableOpacity
-              style={[tw`w-20 bg-red-600 rounded-3xl my-1`, styles.cardShadow]}
-              onPress={handleUpload}
-            >
-              <Text style={[tw`px-4 py-3 text-white font-semibold text-center`]}>Post</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
+              onChangeText={setTitle}
+              value={title}
+            />
+            <TextInput
+              style={[tw`bg-white p-4 mb-1 w-full h-20`, styles.cardShadow]}
+              placeholder='Description... ex. This project is...'
+              maxLength={500}
+              multiline={true}
+              onChangeText={setDescription}
+              value={description}
+            />
+            <TextInput
+              style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
+              placeholder='Price... ex. 50'
+              maxLength={30}
+              keyboardType='numeric'
+              onChangeText={setPayRate}
+              value={pay_rate}
+            />
+            <TextInput
+              style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
+              placeholder='Wurker skill... ex. programmer'
+              maxLength={30}
+              onChangeText={setSkill}
+              value={skill}
+            />
+            <View style={tw`items-center`}>
+              <TouchableOpacity
+                style={[tw`w-20 bg-red-600 rounded-3xl my-1`, styles.cardShadow]}
+                onPress={handleUpload}
+              >
+                <Text style={[tw`px-4 py-3 text-white font-semibold text-center`]}>Post</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  } else {
+    return null;
+  }
 };
-
 export default Post;
 
 const styles = StyleSheet.create({
