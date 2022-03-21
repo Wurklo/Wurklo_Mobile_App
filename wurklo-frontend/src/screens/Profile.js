@@ -17,12 +17,12 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={tw`flex-1`} edges={["left", "top", "right"]}>
-      <View style={[tw`flex-row justify-between items-center border-b-2 border-gray-200 bg-white`, style.cardShadow]}>
+      <View style={tw`flex-row justify-between items-center border-b-2 border-gray-200 bg-white`}>
         <Image
           style={tw`rounded-full h-12 w-12 my-2 ml-2`}
           source={{ uri: profilePic }}
         />
-        <Text style={[tw`text-xl font-bold`, { color: "#949494" }]}>{username}</Text>
+        <Text style={[tw`text-xl font-bold mr-4`, { color: "#949494" }]}>{username}</Text>
         <TouchableOpacity style={tw`mr-2`}>
           <Entypo name="bell" size={30} color="#949494" />
         </TouchableOpacity>
