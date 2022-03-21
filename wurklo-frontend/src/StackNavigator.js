@@ -110,7 +110,7 @@ const HomeWurk = () => {
                 }}
             />
             <BottomTab.Screen
-                name="Analytics"
+                name="Tools"
                 component={Search}
                 options={{
                     tabBarActiveTintColor: "skyblue",

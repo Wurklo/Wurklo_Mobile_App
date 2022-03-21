@@ -10,7 +10,7 @@ const ProfileOption = ({ navigationRoute, option, icon, signout }) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     return (
-        <View style={tw`border-b-2 border-gray-200 bg-white`}>
+        <View style={tw`border-b-2 border-gray-200 bg-white p-2`}>
             <TouchableOpacity
                 style={tw`flex-row justify-between items-center p-2`}
                 onPress={signout ? () => dispatch(setUser(false)) : () => navigation.navigate("Profile")}
