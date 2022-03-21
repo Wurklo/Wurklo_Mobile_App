@@ -29,52 +29,56 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
         }
     }
 
+    const textColorTW = "text-black"
+
 
     return (
         <View style={[
-            tw`flex bg-white mb-1`,
+            tw`flex justify-between bg-white h-96 relative`,
             styles.cardShadow,
         ]}>
             <TouchableOpacity
                 onPress={() => navigation.navigate("ProjectDetails", { id, title, image, description, upvote, downvote, payrate, collab, created, profilePic })}
                 activeOpacity={0.8}
             >
-                <View style={tw`flex-row justify-around items-center my-2 relative`}>
+                <View style={tw`flex-row justify-around items-center my-2 relative z-10`}>
                     <Image
-                        style={tw`rounded-full h-16 w-16 mx-2`}
+                        style={tw`rounded-full h-16 w-16 mx-2 z-20`}
                         source={{ uri: profilePic }}
                     />
                     <View style={tw`absolute top-0.5 right-2 rounded-full p-1${collab ? ' bg-blue-500' : ' bg-yellow-500'}`}>
                         <Text style={collab ? tw`text-white` : ""}>{collab ? "Collab+" : "Solo"}</Text>
                     </View>
                     <View style={tw`flex w-3/4`}>
-                        <Text style={tw`font-bold`}>{title}</Text>
-                        <Text style={tw`text-xs`}>{moment(created).fromNow()}</Text>
-                        <Text style={tw``}>{description.slice(0, 55)}...</Text>
+                        <Text style={tw`font-bold ${textColorTW}`}>{title}</Text>
+                        <Text style={tw`text-xs ${textColorTW}`}>{moment(created).fromNow()}</Text>
+                        <Text style={tw`${textColorTW}`}>{description.slice(0, 55)}...</Text>
                     </View>
                 </View>
                 <Image
-                    style={tw`h-52 w-full`}
+                    style={tw`h-96 w-full opacity-75 absolute z-0`}
                     source={{ uri: image }}
                 />
             </TouchableOpacity>
             <View>
-                <Text style={tw`text-2xl font-bold text-center p-1`}>
-                    {numeral(payrate).format('0.0a')} WURK
-                </Text>
-            </View>
-            <View style={tw`flex-row justify-between mb-1 mx-4`}>
-                <View style={tw`relative`}>
-                    <Entypo onPress={() => handleVote("upvote")} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "lightgray" : "lightgreen"} />
-                    <Text style={tw`absolute -top-1 -left-2 text-xs text-green-600`}>{numeral(upvote.length).format('0a')}</Text>
+                <View>
+                    <Text style={tw`text-2xl font-bold text-center p-1  ${textColorTW}`}>
+                        {numeral(payrate).format('0.0a')} WURK
+                    </Text>
                 </View>
-                <View style={tw`relative`}>
-                    <Entypo onPress={() => handleVote("downvote")} name="thumbs-down" size={30} color={downvote.indexOf(userId) === -1 ? "lightgray" : "pink"} />
-                    <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-600`}>{numeral(downvote.length).format('0a')}</Text>
+                <View style={tw`flex-row justify-between mb-1 mx-4`}>
+                    <View style={tw`relative`}>
+                        <Entypo onPress={() => handleVote("upvote")} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? "black" : "lightgreen"} />
+                        <Text style={tw`absolute -top-1 -left-2 text-xs text-green-500 font-bold`}>{numeral(upvote.length).format('0a')}</Text>
+                    </View>
+                    <View style={tw`relative`}>
+                        <Entypo onPress={() => handleVote("downvote")} name="thumbs-down" size={30} color={downvote.indexOf(userId) === -1 ? "black" : "#ff4c4c"} />
+                        <Text style={tw`absolute -bottom-1 -right-2 text-xs text-red-500 font-bold`}>{numeral(downvote.length).format('0a')}</Text>
+                    </View>
+                    <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "black"} />
+                    <Entypo name="message" size={30} color="black" />
+                    <MaterialCommunityIcons name="share" size={30} color="black" />
                 </View>
-                <Entypo onPress={() => setIsFavorite(!isFavorite)} name="heart" size={30} color={isFavorite ? "violet" : "lightgray"} />
-                <Entypo name="message" size={30} color="skyblue" />
-                <MaterialCommunityIcons name="share" size={30} color="orange" />
             </View>
         </View>
     );

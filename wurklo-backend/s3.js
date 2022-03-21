@@ -26,7 +26,7 @@ export async function generateUploadURL() {
     const params = ({
         Bucket: bucketName,
         Key: imageName,
-        Expires: 300
+        Expires: 300,
     })
 
     const uploadURL = await s3.getSignedUrlPromise('putObject', params);

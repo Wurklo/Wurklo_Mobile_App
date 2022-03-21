@@ -32,9 +32,9 @@ const WurkerDetails = () => {
 
     return (
         <ScrollView style={tw`flex bg-white`}>
-            <View style={tw`justify-center items-center p-2 bg-white`}>
+            <View style={tw`justify-center items-center py-2 bg-white`}>
                 <Image
-                    style={tw`rounded-full h-48 w-64`}
+                    style={tw`h-96 w-full`}
                     source={{ uri: image }}
                 />
                 <Text style={tw`font-bold text-2xl my-2`}>{name}</Text>

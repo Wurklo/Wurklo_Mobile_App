@@ -47,7 +47,7 @@ const ProjectDetails = () => {
                     </View>
                 </View>
                 <Image
-                    style={tw`h-52 w-full`}
+                    style={tw`h-96 w-full`}
                     source={{ uri: image }}
                 />
             </View>

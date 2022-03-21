@@ -8,10 +8,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/core';
+import {RNS3} from 'react-native-aws3';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createProject } from '../redux/slices/projects';
+import { options } from 'numeral';
 
 const Post = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -35,13 +38,12 @@ const Post = () => {
 
   const takePicture = async () => {
     if (camera) {
-      const data = await camera.takePictureAsync(null);
+      const data = await camera.takePictureAsync();
       setImage(data.uri);
     }
   }
-
+  
   const pickImage = async () => {
-    await ImagePicker.getMediaLibraryPermissionsAsync();
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -49,7 +51,6 @@ const Post = () => {
       aspect: [4, 3],
       quality: 1,
     });
-
 
     if (!result.cancelled) {
       setImage(result.uri);

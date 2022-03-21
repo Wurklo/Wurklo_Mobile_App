@@ -23,15 +23,16 @@ const HomeScreen = () => {
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
-            <View style={tw`flex-row justify-between items-center bg-white border-2 border-gray-200`}>
+            <View style={tw`flex-row justify-between items-center bg-black`}>
                 <TouchableOpacity
                     style={tw`rounded-full`}
                 >
                     <MaterialIcons style={tw`p-2 text-gray-500`} name="search" size={30} color="black" />
                 </TouchableOpacity>
                 <TextInput
-                    style={tw`py-4 w-3/4`}
+                    style={tw`py-4 w-3/4 text-white`}
                     placeholder='Search projects... ex. electric cars'
+                    placeholderTextColor='white'
                 />
                 <TouchableOpacity
                     style={tw`rounded-full -ml-4`}
