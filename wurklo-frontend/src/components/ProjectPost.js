@@ -71,7 +71,7 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
                 <View style={tw`flex-row justify-between mb-1 mx-4`}>
                     <View style={tw`relative`}>
                         <Entypo onPress={() => handleVote("upvote")} name="thumbs-up" size={30} color={upvote.indexOf(userId) === -1 ? `${iconsColor}` : "lightgreen"} style={styles.cardShadow}/>
-                        <Text style={[tw`absolute -top-1 -left-2 text-xs text-green-500 font-bold`, styles.cardShadow]}>{numeral(upvote.length).format('0a')}</Text>
+                        <Text style={[tw`absolute -top-1 -left-2 text-xs text-green-300 font-bold`, styles.cardShadow]}>{numeral(upvote.length).format('0a')}</Text>
                     </View>
                     <View style={[tw`relative`, styles.cardShadow]}>
                         <Entypo onPress={() => handleVote("downvote")} name="thumbs-down" size={30} color={downvote.indexOf(userId) === -1 ? `${iconsColor}` : "#ff4c4c"} style={styles.cardShadow}/>

@@ -18,11 +18,11 @@ const WurkerList = () => {
     useEffect(() => {
         dispatch(getWurkers());
     }, []);
-
+    
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
-            <View style={tw`flex-row justify-between items-center bg-white border-2 border-gray-200`}>
+            <View style={tw`flex-row justify-between items-center bg-white`}>
                 <TouchableOpacity
                     style={tw`rounded-full`}
                 >
