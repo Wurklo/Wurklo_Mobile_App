@@ -21,18 +21,17 @@ export const createProject = createAsyncThunk(
     async (postData) => {
         // sending image to s3 bucket and getting a url to store in d
         const response = await axios.get("/s3")
+        console.log(postData.image)
         
         const s3Url = await fetch(response.data.data, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: postData.image
         });
 
         console.log(s3Url)
         console.log(response.data.data)
         // post image directly to s3 bucket
+
         // make another request to my server to store extra data
         try {
             const response = await axios.post('/works', postData)

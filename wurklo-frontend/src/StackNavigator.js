@@ -91,7 +91,7 @@ const HomeWurk = () => {
                     // left: 20,
                     // right: 20,
                     // elevation: 5,
-                    backgroundColor: 'black',
+                    backgroundColor: '#ffffff',
                     // borderRadius: 25,
                     height: 65,
                     paddingBottom: 15,
@@ -197,7 +197,5 @@ const style = StyleSheet.create({
         },
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
-
-        elevation: 10,
     }
 });
