@@ -10,7 +10,6 @@ import tw from 'tailwind-react-native-classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjects } from '../redux/slices/projects';
 
-
 const HomeScreen = () => {
     //redux
     const { projects } = useSelector((state) => state.projects)

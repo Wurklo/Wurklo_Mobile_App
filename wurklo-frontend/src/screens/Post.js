@@ -8,19 +8,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/core';
-import {RNS3} from 'react-native-aws3';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { storage } from '../../firebase';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { createProject } from '../redux/slices/projects';
-import { options } from 'numeral';
+
 
 const Post = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const [progress, setProgress] = useState(0);
+  const [skillNum, setSkillNum] = useState(1);
+
+
   //redux
   const dispatch = useDispatch();
 
@@ -30,11 +33,18 @@ const Post = () => {
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [pay_rate, setPayRate] = useState(null);
-  const [skill, setSkill] = useState(null);
+  const [skill, setSkill] = useState([]);
 
   // write a function that will set collab to true 
   // anytime a project has more than one skill requested
   const [isCollab, setIsCollab] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(status === 'granted');
+    })();
+  }, []);
 
   const takePicture = async () => {
     if (camera) {
@@ -42,7 +52,7 @@ const Post = () => {
       setImage(data.uri);
     }
   }
-  
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -57,8 +67,40 @@ const Post = () => {
     }
   };
 
+
   const handleUpload = () => {
+    // console.log(image)
+    // const randomNum = "first-imgye"
+    // const uploadTask = storage.ref(`images/${randomNum}`).put(image);
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+    //     // progress function ...
+    //     const progress = Math.round(
+    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+    //     );
+    //     setProgress(progress);
+    //   },
+    //   (error) => {
+    //     // error function
+    //     console.log(error);
+    //     alert(error.message);
+    //   },
+    //   () => {
+    //     // complete function
+    //     storage
+    //       .ref("images")
+    //       .child(randomNum)
+    //       .getDownloadURL()
+    //       .then(url => {
+    //         // post image inside db
+    //         console.log(url);
+    //       })
+    //   }
+    // )
+
     const postData = { image, title, description, pay_rate, skill };
+    console.log(postData)
     // this can be changed later to something better
     if (image && title && description && pay_rate && skill) {
       dispatch(createProject(postData));
@@ -74,14 +116,6 @@ const Post = () => {
     alert("Complete form first")
     return;
   }
-
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(status === 'granted');
-    })();
-  }, []);
 
   if (hasCameraPermission === false || hasCameraPermission === null) {
     return (
@@ -145,7 +179,7 @@ const Post = () => {
             }
 
             <TextInput
-              style={[tw`bg-white p-4 mb-1 w-full`, styles.cardShadow]}
+              style={[tw`bg-white p-4 w-full border-b-2 border-gray-200`, styles.cardShadow]}
               placeholder='Title... ex. Building an electric car'
               maxLength={100}
               multiline={true}
@@ -154,7 +188,7 @@ const Post = () => {
               value={title}
             />
             <TextInput
-              style={[tw`bg-white p-4 mb-1 w-full h-20`, styles.cardShadow]}
+              style={[tw`bg-white p-4 w-full h-20 border-b-2 border-gray-200`, styles.cardShadow]}
               placeholder='Description... ex. This project is...'
               maxLength={500}
               multiline={true}
@@ -162,26 +196,48 @@ const Post = () => {
               value={description}
             />
             <TextInput
-              style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
+              style={[tw`bg-white p-4 mr-3 w-full border-b-2 border-gray-200`, styles.cardShadow]}
               placeholder='Price... ex. 50'
               maxLength={30}
               keyboardType='numeric'
               onChangeText={setPayRate}
               value={pay_rate}
             />
-            <TextInput
-              style={[tw`bg-white p-4 mb-1 mr-3 w-full`, styles.cardShadow]}
-              placeholder='Wurker skill... ex. programmer'
-              maxLength={30}
-              onChangeText={setSkill}
-              value={skill}
-            />
-            <View style={tw`items-center`}>
+            <View style={tw`relative`}>
+              {Array(skillNum).fill().map((i) => (
+                <TextInput
+                  style={[tw`bg-white p-4 mr-3 w-full border-b-2 border-gray-200`, styles.cardShadow]}
+                  placeholder='Wurker skill... ex. programmer'
+                  maxLength={30}
+                  onChangeText={setSkill}
+                  value={skill}
+                />
+              ))}
               <TouchableOpacity
-                style={[tw`w-20 bg-red-600 rounded-3xl my-1`, styles.cardShadow]}
+                style={tw`absolute right-0 top-0.5 p-2`}
+                onPress={() => {
+                  if (skillNum >= 5) { setSkillNum(5) };
+                  if (skillNum < 5) { const num = skillNum + 1; setSkillNum(num) };
+                }}
+              >
+                <MaterialCommunityIcons name="plus-thick" size={30} color="gray" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={tw`absolute right-10 top-0.5 p-2`}
+                onPress={() => {
+                  if (skillNum >= 5) { setSkillNum(5) };
+                  if (skillNum < 5) { const num = skillNum + 1; setSkillNum(num) };
+                }}
+              >
+                <MaterialCommunityIcons name="minus-circle" size={30} color="red" />
+              </TouchableOpacity>
+            </View>
+            <View style={tw`items-center mb-10`}>
+              <TouchableOpacity
+                style={[tw`w-40 bg-red-600 rounded-3xl mt-4`, styles.cardShadow]}
                 onPress={handleUpload}
               >
-                <Text style={[tw`px-4 py-3 text-white font-semibold text-center`]}>Post</Text>
+                <Text style={[tw`px-4 py-2 text-white font-semibold text-center text-xl`]}>Post</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

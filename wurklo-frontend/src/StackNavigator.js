@@ -7,8 +7,8 @@ import WurkerList from './screens/WurkerList';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import { Entypo, Ionicons, MaterialIcons, FontAwesome, Octicons } from '@expo/vector-icons';
-import Search from './components/Search';
+import { Entypo, Ionicons, MaterialIcons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
+import Wurk from './components/Wurk';
 import Post from './screens/Post';
 import PersonalChat from './screens/PersonalChat';
 import Profile from './screens/Profile';
@@ -50,9 +50,11 @@ const Messages = () => {
             initialRouteName='PersonalChat'
             screenOptions={{
                 tabBarShowLabel: false,
+                tabBarLabelStyle: style.cardShadow,
                 headerShown: false,
                 tabBarStyle: {
                     marginTop: 33,
+                    backgroundColor: 'gray',
                 }
             }}
         >
@@ -61,7 +63,7 @@ const Messages = () => {
                 component={PersonalChat}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons style={tw`-mr-7 -ml-3 -mt-3`} name='people' size={50} color={focused ? "skyblue" : "gray"} />
+                        <MaterialIcons name='people' size={50} color={focused ? "skyblue" : "white"}  style={[tw`-mr-7 -ml-3 -mt-3`, style.cardShadow]}/>
                     )
                 }}
             />
@@ -70,7 +72,7 @@ const Messages = () => {
                 component={GroupChat}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons style={tw`-mr-7 -ml-3 -mt-3 `} name='groups' size={50} color={focused ? "skyblue" : "gray"} />
+                        <MaterialIcons name='groups' size={50} color={focused ? "skyblue" : "white"}  style={[tw`-mr-7 -ml-3 -mt-3`, style.cardShadow]}/>
                     )
                 }}
             />
@@ -84,6 +86,7 @@ const HomeWurk = () => {
         <BottomTab.Navigator
             screenOptions={{
                 tabBarShowLabel: true,
+                tabBarLabelStyle: style.cardShadow,
                 headerShown: false,                
                 tabBarStyle: {
                     // position: 'absolute',
@@ -91,11 +94,11 @@ const HomeWurk = () => {
                     // left: 20,
                     // right: 20,
                     // elevation: 5,
-                    backgroundColor: '#ffffff',
+                    backgroundColor: 'gray',
                     // borderRadius: 25,
-                    height: 65,
-                    paddingBottom: 15,
-                    ...style.cardShadow
+                    height: 75,
+                    paddingBottom: 20,
+                    paddingTop: 5
                 }
             }}
         >
@@ -104,18 +107,20 @@ const HomeWurk = () => {
                 component={Home}
                 options={{
                     tabBarActiveTintColor: "skyblue",
+                    tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Entypo name='home' size={30} color={focused ? "skyblue" : "gray"} />
+                        <Entypo name='home' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
                     )
                 }}
             />
             <BottomTab.Screen
-                name="Tools"
-                component={Search}
+                name="Wurk"
+                component={Wurk}
                 options={{
                     tabBarActiveTintColor: "skyblue",
+                    tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <AntDesign name='areachart' size={30} color={focused ? "skyblue" : "gray"} />
+                        <MaterialCommunityIcons name='briefcase-variant' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
                     )
                 }}
             />
@@ -125,8 +130,9 @@ const HomeWurk = () => {
                 component={Post}
                 options={{
                     tabBarActiveTintColor: "skyblue",
+                    tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Octicons name='diff-added' size={35} color={focused ? "skyblue" : "grey"} />
+                        <MaterialIcons name='add-circle-outline' size={40} color={focused ? "skyblue" : "white"} style={[tw`-m-2 pb-2`, style.cardShadow]}/>
                     )
                 }}
             />
@@ -135,8 +141,9 @@ const HomeWurk = () => {
                 component={Messages}
                 options={{
                     tabBarActiveTintColor: "skyblue",
+                    tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Entypo name='message' size={32} color={focused ? "skyblue" : "gray"} />
+                        <Entypo name='message' size={32} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
                     )
                 }}
             />
@@ -145,8 +152,9 @@ const HomeWurk = () => {
                 component={Profile}
                 options={{
                     tabBarActiveTintColor: "skyblue",
+                    tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Ionicons name='person' size={30} color={focused ? "skyblue" : "gray"} />
+                        <Ionicons name='person' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
                     )
                 }}
             />
@@ -196,6 +204,12 @@ const style = StyleSheet.create({
             height: 1,
         },
         shadowOpacity: 0.2,
-        shadowRadius: 1.41,
+        textShadowColor: "#4C4C4C",
+        textShadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        textShadowRadius: 3,
+        elevation: 1,
     }
 });

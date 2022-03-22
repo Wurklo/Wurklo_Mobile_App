@@ -13,12 +13,12 @@ const ChatCard = ({ name, lastMessage, profilePic }) => {
             activeOpacity={0.5}
         >
             <Image
-                style={tw`rounded-full h-12 w-12 mx-2`}
+                style={tw`rounded-full h-12 w-12 mx-2 border-2 border-gray-500`}
                 source={{ uri: profilePic }}
             />
             <View style={tw`justify-start items-start`}>
-                <Text style={tw`font-semibold`}>{name}</Text>
-                <Text style={tw`mr-14`}>{lastMessage.slice(0, 55)}</Text>
+                <Text style={tw`font-bold text-gray-500`}>{name}</Text>
+                <Text style={tw`mr-14 text-gray-500`}>{lastMessage.slice(0, 55)}</Text>
             </View>
         </TouchableOpacity>
     )

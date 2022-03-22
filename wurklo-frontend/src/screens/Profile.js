@@ -12,26 +12,20 @@ const username = "Bobby Keel"
 const profilePic = 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg';
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.user)
-  const dispatch = useDispatch();
-
   return (
     <SafeAreaView style={tw`flex-1`} edges={["left", "top", "right"]}>
-      <View style={tw`flex-row justify-between items-center border-b-2 border-gray-200 bg-white`}>
-        <Image
-          style={tw`rounded-full h-12 w-12 my-2 ml-2`}
-          source={{ uri: profilePic }}
-        />
-        <Text style={[tw`text-xl font-bold mr-4`, { color: "#949494" }]}>{username}</Text>
-        <TouchableOpacity style={tw`mr-2`}>
-          <Entypo name="bell" size={30} color="#949494" />
+      <View style={[tw`flex-row justify-between items-center border-b-2 border-gray-200`, { backgroundColor: "#949494" }]}>
+        <View style={style.cardShadow}>
+          <Image
+            style={tw`rounded-full h-12 w-12 my-2 ml-2 border-2 border-white`}
+            source={{ uri: profilePic }}
+          />
+        </View>
+        <Text style={[tw`text-xl font-bold`, { color: "white" }, style.cardShadow]}>{username}</Text>
+        <TouchableOpacity style={tw`mr-2 relative`}>
+          <Entypo name="bell" size={30} color="white" style={[tw`p-1`, style.cardShadow]} />
+          {/* <Text style={[tw`absolute right-4 top-2.5 font-semibold`, {fontSize: "8px"}]}>100</Text> */}
         </TouchableOpacity>
-        {/* <TouchableOpacity
-          onPress={() => dispatch(setUser(false))}
-          style={[tw`bg-blue-500 rounded-full mr-1`, style.cardShadow]}
-        >
-          <Text style={tw`p-1 px-2 font-semibold text-lg text-white text-center`}>Logout</Text>
-        </TouchableOpacity> */}
       </View>
       <ScrollView>
         <ProfileOption
@@ -99,8 +93,12 @@ const style = StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 10,
+    textShadowColor: "#4C4C4C",
+    textShadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    textShadowRadius: 3,
+    elevation: 1,
   },
 });

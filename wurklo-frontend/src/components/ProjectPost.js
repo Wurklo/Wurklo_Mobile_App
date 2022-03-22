@@ -48,8 +48,8 @@ const ProjectPost = ({ id, title, image, description, upvote, downvote, payrate,
                             source={{ uri: profilePic }}
                         />
                     </View>
-                    <View style={[tw`absolute top-0.5 right-2 rounded-full p-1${collab ? ' bg-blue-500' : ' bg-yellow-500'}`, styles.cardShadow]}>
-                        <Text style={collab ? tw`text-white` : ""}>{collab ? "Collab+" : "Solo"}</Text>
+                    <View style={[tw`absolute top-0.5 right-0 rounded-l-full p-1.5 pr-3${collab ? ' bg-blue-500' : ' bg-yellow-500'}`, styles.cardShadow]}>
+                        <Text style={collab ? tw`text-white font-semibold` : tw`font-semibold`}>{collab ? "Collab+" : "Solo"}</Text>
                     </View>
                     <View style={tw`flex w-3/4`}>
                         <Text style={[tw`font-bold ${textColorTW}`,  styles.cardShadow]}>{title}</Text>

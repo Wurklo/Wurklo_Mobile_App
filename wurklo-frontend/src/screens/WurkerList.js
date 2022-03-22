@@ -33,7 +33,7 @@ const WurkerList = () => {
                     placeholder='Search wurkers... ex. plumber'
                 />
                 <TouchableOpacity
-                    style={tw`rounded-full`}
+                    style={tw`rounded-full -ml-4`}
                 >
                     <MaterialCommunityIcons style={tw`p-2 bg-white text-gray-500`} name="sort" size={30} color="black" />
                 </TouchableOpacity>
