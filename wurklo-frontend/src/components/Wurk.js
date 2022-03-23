@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
 import tw from 'tailwind-react-native-classnames';
 import Tablet from './Tablet';
@@ -6,15 +6,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Search = () => {
   return (
-    <SafeAreaView style={tw`flex-1`} edges={["left", "top", "right"]}>
+    <SafeAreaView style={tw`flex-1 -mb-16`} edges={["left",, "top", "right"]}>
       <ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Wurkers I hired</Text>
+        <View style={[tw`items-center pt-2`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Wurkers I hired</Text>
         </View>
+
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={{backgroundColor: 'gray'}}
         >
           <Tablet />
           <Tablet />
@@ -22,15 +23,16 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Projects I wurk on</Text>
+
+        <View style={[tw`items-center`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Projects I wurk on</Text>
         </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={{backgroundColor: 'gray'}}
         >
           <Tablet />
           <Tablet />
@@ -38,15 +40,15 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Wurk I accepted to do</Text>
+        <View style={[tw`items-center`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Scheduled Wurk</Text>
         </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={{backgroundColor: 'gray'}}
         >
           <Tablet />
           <Tablet />
@@ -54,15 +56,15 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Request for me to do wurk</Text>
+        <View style={[tw`items-center`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Request for me to do wurk</Text>
         </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={{backgroundColor: 'gray'}}
         >
           <Tablet />
           <Tablet />
@@ -70,15 +72,15 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Request by me to get wurk</Text>
+        <View style={[tw`items-center`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Request by me to get wurk</Text>
         </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={{backgroundColor: 'gray'}}
         >
           <Tablet />
           <Tablet />
@@ -86,15 +88,15 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Favorite Wurkers</Text>
+        <View style={[tw`items-center`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Favorite Wurkers</Text>
         </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={{backgroundColor: 'gray'}}
         >
           <Tablet />
           <Tablet />
@@ -102,15 +104,15 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
-        <View style={tw`items-center bg-gray-500`}>
-          <Text style={tw`text-xl text-white font-bold`}>Favorite Projects</Text>
+        <View style={[tw`items-center`, {backgroundColor: 'gray'}]}>
+          <Text style={[tw`text-xl text-white font-bold`, style.cardShadow]}>Favorite Projects</Text>
         </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={tw`mr-2`}
+          style={[tw`pb-8`, {backgroundColor: 'gray'}]}
         >
           <Tablet />
           <Tablet />
@@ -118,7 +120,7 @@ const Search = () => {
           <Tablet />
           <Tablet />
           <Tablet />
-  
+
         </ScrollView>
       </ScrollView>
     </SafeAreaView>
@@ -126,3 +128,21 @@ const Search = () => {
 };
 
 export default Search;
+
+const style = StyleSheet.create({
+  cardShadow: {
+      shadowColor: "#000",
+      shadowOffset: {
+          width: 0,
+          height: 2,
+      },
+      shadowOpacity: 0.2,
+      textShadowColor: "#4C4C4C",
+      textShadowOffset: {
+          width: 0,
+          height: 2,
+      },
+      textShadowRadius: 3,
+      elevation: 1,
+  }
+});

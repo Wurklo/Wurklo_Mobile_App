@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import tw from 'tailwind-react-native-classnames';
 import { AirbnbRating } from 'react-native-elements';
@@ -19,6 +19,7 @@ const WurkerDetails = () => {
     const { wurkers } = useSelector((state) => state.wurkers);
     const index = wurkers.findIndex((obj) => obj._id === id);
     const { image, name, skill, rating, description, pay_rate, upvote, downvote } = wurkers[index];
+    const ratingAvg = rating.reduce((x, y) => (x + y), 0) / rating.length
 
     const userId = 110;// temporary userId until connecting userprofile
 
@@ -34,18 +35,21 @@ const WurkerDetails = () => {
         <ScrollView style={tw`flex bg-white`}>
             <View style={tw`justify-center items-center py-2 bg-white`}>
                 <Image
-                    style={tw`h-96 w-full`}
+                    style={tw`h-96 w-full -mt-2`}
                     source={{ uri: image }}
                 />
+
+                <View style={tw`z-10 absolute right-2 top-0 bg-green-300 pb-5 rounded-b-full`}>
+                    {/* <View style={tw`z-10 mt-0.5 items-center`}>
+                        <Text style={[tw`text-white font-semibold`, styles.cardShadow]}>{numeral(rating.length).format('0a')}</Text>
+                    </View> */}
+                    {Array(Math.round(ratingAvg)).fill().map((i) => (
+                        <MaterialCommunityIcons name="shield-star" size={34} color="#FBFF19" style={[tw`p-1 -mb-4`, styles.cardShadow]} />
+                    ))}
+                </View>
+
                 <Text style={tw`font-bold text-2xl my-2`}>{name}</Text>
                 <Text>{skill}</Text>
-                <AirbnbRating
-                    size={25}
-                    defaultRating={rating}
-                    isDisabled={true}
-                    showRating={false}
-                    starContainerStyle={tw`mt-2`}
-                />
                 <Text style={tw`text-2xl font-bold text-center p-2`}>
                     {numeral(pay_rate).format('0.0a')} WURK
                 </Text>
@@ -69,3 +73,21 @@ const WurkerDetails = () => {
 };
 
 export default WurkerDetails;
+
+const styles = StyleSheet.create({
+    cardShadow: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        textShadowColor: "#4C4C4C",
+        textShadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        textShadowRadius: 3,
+        elevation: 1,
+    },
+});

@@ -94,7 +94,7 @@ const HomeWurk = () => {
                     // left: 20,
                     // right: 20,
                     // elevation: 5,
-                    backgroundColor: 'gray',
+                    backgroundColor: "gray",
                     // borderRadius: 25,
                     height: 75,
                     paddingBottom: 20,
