@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import ProjectPost from '../components/ProjectPost';
 import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -22,22 +22,27 @@ const HomeScreen = () => {
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />
-            <View style={tw`flex-row justify-between items-center bg-white`}>
+
+            <View style={[tw`flex-row justify-between items-center`, { backgroundColor: "#949494" }]}>
                 <TouchableOpacity
                     style={tw`rounded-full`}
                 >
-                    <MaterialIcons style={tw`p-2 text-gray-500`} name="search" size={30} color="black" />
+                    <MaterialIcons name="search" size={30} color="black" style={[tw`p-2 text-white`, style.cardShadow]} />
                 </TouchableOpacity>
                 <TextInput
-                    style={tw`py-4 w-3/4`}
+                    clearButtonMode='while-editing'
+                    style={[tw`py-2 mb-1 w-4/6 -ml-4 text-base`, style.cardShadow]}
                     placeholder='Search projects... ex. electric cars'
+                    placeholderTextColor="white"
+                    color="white"
                 />
                 <TouchableOpacity
                     style={tw`rounded-full -ml-4`}
                 >
-                    <MaterialCommunityIcons style={tw`p-2 text-gray-500`} name="sort" size={30} color="black" />
+                    <MaterialCommunityIcons name="sort" size={30} color="black" style={[tw`p-2 text-white`, style.cardShadow]} />
                 </TouchableOpacity>
             </View>
+
             <FlatList
                 contentContainerStyle={tw`pb-32`}
                 data={projects} // maybe add back projects?.data when pulling from server 
@@ -62,11 +67,20 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-// });
+const style = StyleSheet.create({
+    cardShadow: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        textShadowColor: "#4C4C4C",
+        textShadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        textShadowRadius: 3,
+        elevation: 1,
+    },
+});

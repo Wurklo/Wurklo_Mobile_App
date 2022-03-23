@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/core';
-import { storage } from '../../firebase';
+import axios from '../redux/axios';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,60 +57,43 @@ const Post = () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      base64: true,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage("data:image/image/png;base64," + result.base64);
     }
   };
 
 
-  const handleUpload = () => {
-    // console.log(image)
-    // const randomNum = "first-imgye"
-    // const uploadTask = storage.ref(`images/${randomNum}`).put(image);
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     // progress function ...
-    //     const progress = Math.round(
-    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-    //     );
-    //     setProgress(progress);
-    //   },
-    //   (error) => {
-    //     // error function
-    //     console.log(error);
-    //     alert(error.message);
-    //   },
-    //   () => {
-    //     // complete function
-    //     storage
-    //       .ref("images")
-    //       .child(randomNum)
-    //       .getDownloadURL()
-    //       .then(url => {
-    //         // post image inside db
-    //         console.log(url);
-    //       })
-    //   }
-    // )
+  const handleUpload = async () => {
+    const response = await axios.get("/s3")
+
+    console.log("Response", response.data.data)
+
+    await fetch(response.data.data, {
+      method: "PUT",
+      body: image
+    });
+
+    console.log("image", image)
+
 
     const postData = { image, title, description, pay_rate, skill };
-    console.log(postData)
+    console.log("postDate", postData)
     // this can be changed later to something better
     if (image && title && description && pay_rate && skill) {
-      dispatch(createProject(postData));
+      // dispatch(createProject(postData));
 
-      setImage(null);
-      setTitle(null);
-      setDescription(null);
-      setPayRate(null);
-      setSkill(null);
-      navigation.navigate("Home");
+      // setImage(null);
+      // setTitle(null);
+      // setDescription(null);
+      // setPayRate(null);
+      // setSkill(null);
+      // navigation.navigate("Home");
       return;
     }
     alert("Complete form first")
