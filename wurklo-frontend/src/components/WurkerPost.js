@@ -16,6 +16,7 @@ const WurkerPost = ({ id, image, name, skill, rating, description, payrate, upvo
     const dispatch = useDispatch();
 
     const userId = 110;
+    
     const handleVote = (voteType) => {
         if (voteType === "upvote") {
             dispatch(upvoteWurker({ userId, downvote, upvote, id }));

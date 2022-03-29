@@ -18,7 +18,7 @@ const WurkerList = () => {
     useEffect(() => {
         dispatch(getWurkers());
     }, []);
-
+console.log(wurkers)
     return (
         <SafeAreaView edges={['right', 'top', 'left']}>
             <StatusBar style="auto" />

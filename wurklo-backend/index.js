@@ -11,12 +11,12 @@ import works from './routes/work.js';
 import wurkerRoutes from './routes/wurker.js';
 import s3Routes from './routes/s3.js';
 
-//load env vars
+//load env vars`
 dotenv.config({ path: './config/config.env' });
 
 connectDB();
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 // body parser
 app.use(express.json());

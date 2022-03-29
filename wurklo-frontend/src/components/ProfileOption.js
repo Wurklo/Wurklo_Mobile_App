@@ -13,7 +13,7 @@ const ProfileOption = ({ navigationRoute, option, icon, signout }) => {
         <View style={tw`border-b-2 border-gray-200 bg-white p-2 -mr-2`}>
             <TouchableOpacity
                 style={tw`flex-row justify-between items-center p-2`}
-                onPress={signout ? () => dispatch(setUser(false)) : () => navigation.navigate("Profile")}
+                onPress={signout ? () => dispatch(setUser(false)) : () => navigation.navigate(navigationRoute)}
             >
                 <MaterialCommunityIcons name={icon} size={34} color="gray" />
                 <Text style={tw`text-base font-semibold text-gray-500`}>{option}</Text>

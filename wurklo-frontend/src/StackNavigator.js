@@ -20,6 +20,16 @@ import { useSelector } from 'react-redux';
 import GroupChat from './screens/GroupChat';
 import Chat from './screens/Chat';
 import { AntDesign } from '@expo/vector-icons';
+import MyAccount from './screens/MyAccount';
+import WurkerProfile from './screens/WurkerProfile';
+import Notifications from './screens/Notifications';
+import BillingPayments from './screens/BillingPayments';
+import DisplaySettings from './screens/DisplaySettings';
+import LanguageCountry from './screens/LanguageCountry';
+import HelpFeedback from './screens/HelpFeedback';
+import AboutLegal from './screens/AboutLegal';
+
+
 
 const Tab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -63,7 +73,7 @@ const Messages = () => {
                 component={PersonalChat}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons name='people' size={50} color={focused ? "skyblue" : "white"}  style={[tw`-mr-7 -ml-3 -mt-3`, style.cardShadow]}/>
+                        <MaterialIcons name='people' size={50} color={focused ? "skyblue" : "white"} style={[tw`-mr-7 -ml-3 -mt-3`, style.cardShadow]} />
                     )
                 }}
             />
@@ -72,7 +82,7 @@ const Messages = () => {
                 component={GroupChat}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons name='groups' size={50} color={focused ? "skyblue" : "white"}  style={[tw`-mr-7 -ml-3 -mt-3`, style.cardShadow]}/>
+                        <MaterialIcons name='groups' size={50} color={focused ? "skyblue" : "white"} style={[tw`-mr-7 -ml-3 -mt-3`, style.cardShadow]} />
                     )
                 }}
             />
@@ -87,7 +97,7 @@ const HomeWurk = () => {
             screenOptions={{
                 tabBarShowLabel: true,
                 tabBarLabelStyle: style.cardShadow,
-                headerShown: false,                
+                headerShown: false,
                 tabBarStyle: {
                     // position: 'absolute',
                     // bottom: 15,
@@ -109,7 +119,7 @@ const HomeWurk = () => {
                     tabBarActiveTintColor: "skyblue",
                     tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Entypo name='home' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
+                        <Entypo name='home' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow} />
                     )
                 }}
             />
@@ -120,11 +130,11 @@ const HomeWurk = () => {
                     tabBarActiveTintColor: "skyblue",
                     tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <MaterialCommunityIcons name='briefcase-variant' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
+                        <MaterialCommunityIcons name='briefcase-variant' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow} />
                     )
                 }}
             />
-             {/* style={[tw`absolute -top-4 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} */}
+            {/* style={[tw`absolute -top-4 bg-white p-2 -m-3`, { borderRadius: 36, overflow: 'hidden' }]} */}
             <BottomTab.Screen
                 name="Post"
                 component={Post}
@@ -132,7 +142,7 @@ const HomeWurk = () => {
                     tabBarActiveTintColor: "skyblue",
                     tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons name='add-circle-outline' size={40} color={focused ? "skyblue" : "white"} style={[tw`-m-2 pb-2`, style.cardShadow]}/>
+                        <MaterialIcons name='add-circle-outline' size={40} color={focused ? "skyblue" : "white"} style={[tw`-m-2 pb-2`, style.cardShadow]} />
                     )
                 }}
             />
@@ -143,7 +153,7 @@ const HomeWurk = () => {
                     tabBarActiveTintColor: "skyblue",
                     tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Entypo name='message' size={32} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
+                        <Entypo name='message' size={32} color={focused ? "skyblue" : "white"} style={style.cardShadow} />
                     )
                 }}
             />
@@ -154,7 +164,7 @@ const HomeWurk = () => {
                     tabBarActiveTintColor: "skyblue",
                     tabBarInactiveTintColor: "white",
                     tabBarIcon: ({ focused }) => (
-                        <Ionicons name='person' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow}/>
+                        <Ionicons name='person' size={30} color={focused ? "skyblue" : "white"} style={style.cardShadow} />
                     )
                 }}
             />
@@ -176,6 +186,16 @@ const StackNavigator = () => {
                         <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
                         <Stack.Screen name="WurkerDetails" component={WurkerDetails} />
                         <Stack.Screen name="Chat" component={Chat} />
+                    </Stack.Group>
+                    <Stack.Group>
+                        <Stack.Screen name="MyAccount" component={MyAccount} />
+                        <Stack.Screen name="WurkerProfile" component={WurkerProfile} />
+                        <Stack.Screen name="Notifications" component={Notifications} />
+                        <Stack.Screen name="BillingPayments" component={BillingPayments} />
+                        <Stack.Screen name="DisplaySettings" component={DisplaySettings} />
+                        <Stack.Screen name="LanguageCountry" component={LanguageCountry} />
+                        <Stack.Screen name="HelpFeedback" component={HelpFeedback} />
+                        <Stack.Screen name="AboutLegal" component={AboutLegal} />
                     </Stack.Group>
                 </>
             ) : (

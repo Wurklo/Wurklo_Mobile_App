@@ -29,47 +29,47 @@ const Profile = () => {
       </View>
       <ScrollView>
         <ProfileOption
-          navigationRoute="myAccount"
+          navigationRoute="MyAccount"
           option="My Account"
           icon="account-cog"
         />
         <ProfileOption
-          navigationRoute="wurkerProfile"
+          navigationRoute="WurkerProfile"
           option="Wurker Profile"
           icon="briefcase-variant"
         />
-        <ProfileOption
+        {/* <ProfileOption
           navigationRoute="favorites"
           option="Favorites Wurkers/Projects"
           icon="cards-heart"
-        />
+        /> */}
         <ProfileOption
-          navigationRoute="notifications"
+          navigationRoute="Notifications"
           option="Notifications"
           icon="bell"
         />
         <ProfileOption
-          navigationRoute="billingPayments"
+          navigationRoute="BillingPayments"
           option="Billing & Payments"
           icon="cash-usd"
         />
         <ProfileOption
-          navigationRoute="displaySettings"
+          navigationRoute="DisplaySettings"
           option="Display Settings"
           icon="monitor-dashboard"
         />
         <ProfileOption
-          navigationRoute="languageCountry"
+          navigationRoute="LanguageCountry"
           option="Language & Country"
           icon="head-question"
         />
         <ProfileOption
-          navigationRoute="helpFeedback"
+          navigationRoute="HelpFeedback"
           option="Help & Feedback"
           icon="help"
         />
         <ProfileOption
-          navigationRoute="aboutLegal"
+          navigationRoute="AboutLegal"
           option="About & Legal"
           icon="book-open-variant"
         />
